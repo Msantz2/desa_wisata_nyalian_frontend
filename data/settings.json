@@ -1,0 +1,18 @@
+{
+  "siteName": "Nyalian Tourism Village",
+  "tagline": "Where Bali's Royal Heritage Was Born",
+  "description": "A living royal village in Klungkung, Bali — where sacred ritual, rice-field landscapes, and everyday community life remain one and the same, not staged for visitors, but shared with them.",
+  "email": "info@nyalianvillage.com",
+  "phone": "+62 366 123456",
+  "whatsapp": "+62 812 3456 7890",
+  "address": "Desa Nyalian, Kecamatan Banjarangkan, Kabupaten Klungkung, Bali, Indonesia",
+  "latitude": -8.4993,
+  "longitude": 115.3673,
+  "googleMapsEmbed": "https://www.google.com/maps?q=-8.4993,115.3673&hl=id&z=15&output=embed",
+  "socialMedia": {
+    "instagram": "https://instagram.com/nyalianvillage",
+    "facebook": "https://facebook.com/nyalianvillage",
+    "youtube": "https://youtube.com/@nyalianvillage",
+    "tiktok": "https://tiktok.com/@nyalianvillage"
+  }
+}

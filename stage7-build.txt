@@ -1,0 +1,47 @@
+﻿
+> frontend_desa_nyalian@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+Ô£ô Compiled successfully in 3.5s
+  Running TypeScript ...
+  Finished TypeScript in 4.7s ...
+  Collecting page data using 14 workers ...
+  Generating static pages using 14 workers (0/32) ...
+  Generating static pages using 14 workers (8/32) 
+  Generating static pages using 14 workers (16/32) 
+  Generating static pages using 14 workers (24/32) 
+Ô£ô Generating static pages using 14 workers (32/32) in 988ms
+  Finalizing page optimization ...
+
+Route (app)
+Ôöî Ôùï /
+Ôö£ Ôùï /_not-found
+Ôö£ Ôùï /about
+Ôö£ Ôùï /articles
+Ôö£ ÔùÅ /articles/[slug]
+Ôöé Ôö£ /articles/best-time-visit-nyalian-village
+Ôöé Ôö£ /articles/balinese-temple-etiquette-guide
+Ôöé Ôö£ /articles/discovering-nyalian-hidden-waterfalls
+Ôöé Ôöö [+5 more paths]
+Ôö£ Ôùï /destinations
+Ôö£ ÔùÅ /destinations/[slug]
+Ôöé Ôö£ /destinations/tukad-melangit-waterfall
+Ôöé Ôö£ /destinations/sawah-terasering-nyalian
+Ôöé Ôö£ /destinations/pura-dalem-nyalian
+Ôöé Ôöö [+5 more paths]
+Ôö£ Ôùï /faq
+Ôö£ Ôùï /packages
+Ôö£ ÔùÅ /packages/[slug]
+Ôöé Ôö£ /packages/full-day-nature-explorer
+Ôöé Ôö£ /packages/cultural-immersion-experience
+Ôöé Ôö£ /packages/spiritual-journey-package
+Ôöé Ôöö [+3 more paths]
+Ôöö Ôùï /plan-your-visit
+
+
+Ôùï  (Static)  prerendered as static content
+ÔùÅ  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

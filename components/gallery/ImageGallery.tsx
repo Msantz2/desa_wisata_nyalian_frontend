@@ -1,0 +1,151 @@
+"use client";
+
+import { useState, useCallback, useEffect } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import SafeImage from "@/components/shared/SafeImage";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { getPlaceholderImage } from "@/lib/placeholderImage";
+
+interface ImageGalleryProps {
+  images: string[];
+  onImageClick?: (index: number) => void;
+  variant?: "carousel" | "grid";
+}
+
+export default function ImageGallery({ images, onImageClick, variant = "carousel" }: ImageGalleryProps) {
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, align: "start" },
+    [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
+  );
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+  }, [emblaApi, onSelect]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") scrollPrev();
+      if (event.key === "ArrowRight") scrollNext();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [emblaApi, scrollPrev, scrollNext]);
+
+  if (variant === "grid") {
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group"
+            onClick={() => onImageClick?.(index)}
+          >
+            <SafeImage
+              src={getPlaceholderImage(image, 600, 450)}
+              alt={`Gallery image ${index + 1} of ${images.length}`}
+              fill
+              className="object-cover group-hover:scale-110 transition-transform duration-300"
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-2"
+            >
+              <div
+                className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group"
+                onClick={() => onImageClick?.(index)}
+              >
+                <SafeImage
+                  src={getPlaceholderImage(image, 600, 450)}
+                  alt={`Gallery image ${index + 1} of ${images.length}`}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg z-10 w-8 h-8 sm:w-10 sm:h-10"
+        onClick={scrollPrev}
+        disabled={!canScrollPrev}
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
+      </Button>
+
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg z-10 w-8 h-8 sm:w-10 sm:h-10"
+        onClick={scrollNext}
+        disabled={!canScrollNext}
+        aria-label="Next image"
+      >
+        <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
+      </Button>
+
+      <div className="flex justify-center gap-2 mt-4">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className={`w-2 h-2 rounded-full transition-all ${
+              index === selectedIndex
+                ? "bg-primary w-8"
+                : "bg-border hover:bg-primary/50"
+            }`}
+            onClick={() => scrollTo(index)}
+            aria-label={`Go to image ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
