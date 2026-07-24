@@ -6,13 +6,11 @@
  * 
  * Usage:
  *   import { getPlaceholderImage } from '@/lib/placeholderImage';
- *   const imageUrl = getPlaceholderImage('/images/Desa Nyalian_1.webp', 800, 600);
+ *   const imageUrl = getPlaceholderImage('/images/Desa Nyalian_1.webp');
  */
 
 export function getPlaceholderImage(
-  relativePath: string,
-  width?: number,
-  height?: number
+  relativePath: string
 ): string {
   // Return the local path as-is for Next.js Image component
   // Next.js will handle optimization automatically

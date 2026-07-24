@@ -13,7 +13,7 @@ interface HighlightSectionProps {
   village: VillageProfile;
 }
 
-export default function HighlightSection({ village }: HighlightSectionProps) {
+export default function HighlightSection({ }: HighlightSectionProps) {
   const highlights = [
     {
       icon: Crown,

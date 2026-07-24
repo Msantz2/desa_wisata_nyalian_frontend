@@ -9,7 +9,7 @@ interface VideoCardProps {
 }
 
 export default function VideoCard({ video, onClick }: VideoCardProps) {
-  const thumbnailUrl = getPlaceholderImage(video.thumbnail, 600, 400);
+  const thumbnailUrl = getPlaceholderImage(video.thumbnail);
   
   return (
     <button

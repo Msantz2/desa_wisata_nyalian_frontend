@@ -87,11 +87,10 @@ export default function PackageDetailPage({
     <>
       <div className="relative h-[400px] w-full">
         <Image
-          src={getPlaceholderImage(pkg.thumbnail, 1200, 400)}
+          src={getPlaceholderImage(pkg.thumbnail)}
           alt={pkg.name}
           fill
           className="object-cover"
-          priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">

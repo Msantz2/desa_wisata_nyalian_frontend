@@ -56,7 +56,7 @@ export default function PackageDetailContent({
     <>
       <div className="relative h-[50vh] md:h-[60vh] w-full">
         <Image
-          src={getPlaceholderImage(pkg.thumbnail, 1920, 1080)}
+          src={getPlaceholderImage(pkg.thumbnail)}
           alt={pkg.name}
           fill
           priority

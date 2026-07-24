@@ -41,7 +41,7 @@ export default function RelatedContent({ destinations, packages }: RelatedConten
               >
                 <div className="relative h-40 w-full">
                   <SafeImage
-                    src={getPlaceholderImage(destination.images[0], 400, 300)}
+                    src={getPlaceholderImage(destination.images[0])}
                     alt={destination.name}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -76,7 +76,7 @@ export default function RelatedContent({ destinations, packages }: RelatedConten
               >
                 <div className="relative h-40 w-full">
                   <SafeImage
-                    src={getPlaceholderImage(pkg.thumbnail, 400, 300)}
+                    src={getPlaceholderImage(pkg.thumbnail)}
                     alt={pkg.name}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"

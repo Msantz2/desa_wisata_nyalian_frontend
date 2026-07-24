@@ -13,7 +13,7 @@ interface PackageCardProps {
 }
 
 export default function PackageCard({ package: pkg }: PackageCardProps) {
-  const imageUrl = getPlaceholderImage(pkg.thumbnail, 400, 300);
+  const imageUrl = getPlaceholderImage(pkg.thumbnail);
   const { openModal } = usePackageModal();
   
   return (

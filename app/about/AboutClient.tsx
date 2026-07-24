@@ -17,7 +17,7 @@ interface AboutClientProps {
 }
 
 export default function AboutClient({ village, settings }: AboutClientProps) {
-  const heroImageUrl = getPlaceholderImage(village.heroImage, 1200, 600);
+  const heroImageUrl = getPlaceholderImage(village.heroImage);
 
   return (
     <div className="pt-20">

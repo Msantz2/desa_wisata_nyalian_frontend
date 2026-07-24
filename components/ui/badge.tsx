@@ -31,7 +31,7 @@ export interface BadgeProps
 
 function Badge({ className, variant, as: Component = "div", ...props }: BadgeProps) {
   return (
-    <Component className={cn(badgeVariants({ variant }), className)} {...props as any} />
+    <Component className={cn(badgeVariants({ variant }), className)} {...(props as React.HTMLAttributes<HTMLElement>)} />
   )
 }
 

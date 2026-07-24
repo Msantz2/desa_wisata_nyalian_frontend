@@ -7,7 +7,6 @@ import {
   MapPin,
   Camera,
   Trees,
-  Waves,
   Home,
   Coffee,
   ShoppingBag,

@@ -150,7 +150,7 @@ export default function DestinationModal({ allDestinations }: DestinationModalPr
                     {destination.images.length > 1 ? (
                       <div className="relative h-full w-full group">
                         <SafeImage
-                          src={getPlaceholderImage(destination.images[activeImageIndex], 1200, 600)}
+                          src={getPlaceholderImage(destination.images[activeImageIndex])}
                           alt={destination.name}
                           fill
                           className="object-cover"
@@ -192,7 +192,7 @@ export default function DestinationModal({ allDestinations }: DestinationModalPr
                       </div>
                     ) : (
                       <SafeImage
-                        src={getPlaceholderImage(destination.images[0], 1200, 600)}
+                        src={getPlaceholderImage(destination.images[0])}
                         alt={destination.name}
                         fill
                         className="object-cover"
@@ -267,7 +267,7 @@ export default function DestinationModal({ allDestinations }: DestinationModalPr
                                   onClick={() => handleImageClick(idx)}
                                 >
                                   <SafeImage
-                                    src={getPlaceholderImage(image, 400, 300)}
+                                    src={getPlaceholderImage(image)}
                                     alt={`${destination.name} - Photo ${idx + 1}`}
                                     fill
                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -524,7 +524,7 @@ export default function DestinationModal({ allDestinations }: DestinationModalPr
                             >
                               <div className="relative h-32 w-full">
                                 <SafeImage
-                                  src={getPlaceholderImage(related.images[0], 300, 200)}
+                                  src={getPlaceholderImage(related.images[0])}
                                   alt={related.name}
                                   fill
                                   className="object-cover group-hover:scale-110 transition-transform duration-300"

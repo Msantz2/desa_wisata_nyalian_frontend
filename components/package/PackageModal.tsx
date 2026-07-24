@@ -143,7 +143,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                     {allImages.length > 1 ? (
                       <div className="relative h-full w-full group">
                         <SafeImage
-                          src={getPlaceholderImage(allImages[activeImageIndex], 1200, 600)}
+                          src={getPlaceholderImage(allImages[activeImageIndex])}
                           alt={pkg.name}
                           fill
                           className="object-cover"
@@ -185,7 +185,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                       </div>
                     ) : (
                       <SafeImage
-                        src={getPlaceholderImage(pkg.thumbnail, 1200, 600)}
+                        src={getPlaceholderImage(pkg.thumbnail)}
                         alt={pkg.name}
                         fill
                         className="object-cover"
@@ -294,7 +294,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                                 >
                                   <div className="relative h-32 w-full">
                                     <SafeImage
-                                      src={getPlaceholderImage(destination.images[0], 300, 200)}
+                                      src={getPlaceholderImage(destination.images[0])}
                                       alt={destination.name}
                                       fill
                                       className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -369,7 +369,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                                   onClick={() => handleImageClick(idx)}
                                 >
                                   <SafeImage
-                                    src={getPlaceholderImage(image, 400, 300)}
+                                    src={getPlaceholderImage(image)}
                                     alt={`${pkg.name} - Photo ${idx + 1}`}
                                     fill
                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -541,7 +541,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             >
                               <div className="relative h-32 w-full">
                                 <SafeImage
-                                  src={getPlaceholderImage(related.thumbnail, 300, 200)}
+                                  src={getPlaceholderImage(related.thumbnail)}
                                   alt={related.name}
                                   fill
                                   className="object-cover group-hover:scale-110 transition-transform duration-300"

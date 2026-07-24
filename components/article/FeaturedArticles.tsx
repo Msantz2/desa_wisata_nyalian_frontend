@@ -24,7 +24,7 @@ export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {displayArticles.map((article) => {
-          const imageUrl = getPlaceholderImage(article.coverImage, 600, 400);
+          const imageUrl = getPlaceholderImage(article.coverImage);
           
           return (
             <Link

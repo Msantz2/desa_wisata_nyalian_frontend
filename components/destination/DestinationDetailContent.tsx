@@ -59,7 +59,7 @@ export default function DestinationDetailContent({
     <>
       <div className="relative h-[50vh] md:h-[60vh] w-full">
         <Image
-          src={getPlaceholderImage(destination.images[0], 1920, 1080)}
+          src={getPlaceholderImage(destination.images[0])}
           alt={destination.name}
           fill
           priority

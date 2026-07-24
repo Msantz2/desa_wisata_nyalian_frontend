@@ -47,9 +47,12 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
 
   useEffect(() => {
     if (!emblaApi) return;
-    onSelect();
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
   }, [emblaApi, onSelect]);
 
   useEffect(() => {
@@ -74,7 +77,7 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
             onClick={() => onImageClick?.(index)}
           >
             <SafeImage
-              src={getPlaceholderImage(image, 600, 450)}
+              src={getPlaceholderImage(image)}
               alt={`Gallery image ${index + 1} of ${images.length}`}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -99,7 +102,7 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
                 onClick={() => onImageClick?.(index)}
               >
                 <SafeImage
-                  src={getPlaceholderImage(image, 600, 450)}
+                  src={getPlaceholderImage(image)}
                   alt={`Gallery image ${index + 1} of ${images.length}`}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-300"

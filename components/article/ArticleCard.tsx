@@ -11,7 +11,7 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
-  const imageUrl = getPlaceholderImage(article.coverImage, 400, 300);
+  const imageUrl = getPlaceholderImage(article.coverImage);
   
   return (
     <Link

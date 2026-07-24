@@ -86,7 +86,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     ? allPackages.filter((p) => article.relatedPackages?.includes(p.id))
     : [];
 
-  const imageUrl = getPlaceholderImage(article.coverImage, 1200, 600);
+  const imageUrl = getPlaceholderImage(article.coverImage);
   const readingTime = article.readTime || calculateReadingTime(article.content);
   const shareUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ""}/articles/${article.slug}`;
 

@@ -12,7 +12,7 @@ interface DestinationCardProps {
 }
 
 export default function DestinationCard({ destination }: DestinationCardProps) {
-  const imageUrl = getPlaceholderImage(destination.images[0], 400, 300);
+  const imageUrl = getPlaceholderImage(destination.images[0]);
   const { openModal } = useDestinationModal();
   
   return (

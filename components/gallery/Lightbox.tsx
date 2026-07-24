@@ -17,17 +17,13 @@ interface LightboxProps {
   onClose: () => void;
 }
 
-export default function Lightbox({
+function LightboxContent({
   images,
   initialIndex,
   isOpen,
   onClose,
 }: LightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
-
-  useEffect(() => {
-    setCurrentIndex(initialIndex);
-  }, [initialIndex]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -68,7 +64,7 @@ export default function Lightbox({
 
           <div className="relative w-full h-full flex items-center justify-center p-12">
             <SafeImage
-              src={getPlaceholderImage(images[currentIndex], 1200, 900)}
+              src={getPlaceholderImage(images[currentIndex])}
               alt={`Image ${currentIndex + 1}`}
               fill
               className="object-contain"
@@ -106,4 +102,8 @@ export default function Lightbox({
       </DialogContent>
     </Dialog>
   );
+}
+
+export default function Lightbox(props: LightboxProps) {
+  return <LightboxContent key={props.initialIndex} {...props} />;
 }
