@@ -20,13 +20,14 @@ export default function DestinationCard({ destination }: DestinationCardProps) {
       onClick={() => openModal(destination)}
       className="h-full group flex flex-col bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 text-left w-full"
     >
-      <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
-        <SafeImage
-          src={imageUrl}
-          alt={destination.name}
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-300"
-        />
+       <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
+         <SafeImage
+           src={imageUrl}
+           alt={destination.name}
+           fill
+           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+           className="object-cover group-hover:scale-110 transition-transform duration-300"
+         />
         <div className="absolute top-3 left-3">
           <Badge className="bg-primary text-white">
             {destination.category}
@@ -34,10 +35,10 @@ export default function DestinationCard({ destination }: DestinationCardProps) {
         </div>
       </div>
       
-      <div className="p-4 flex flex-col flex-1">
-        <h3 className="font-heading text-xl font-bold text-text-primary mb-2 group-hover:text-primary transition-colors line-clamp-2">
-          {destination.name}
-        </h3>
+       <div className="p-4 flex flex-col flex-1">
+         <h3 className="font-heading text-xl font-bold text-[#22c55e] mb-2 group-hover:text-primary transition-colors line-clamp-2">
+           {destination.name}
+         </h3>
         
         <div className="flex items-center text-text-muted text-sm mb-3">
           <MapPin className="w-4 h-4 mr-1" />

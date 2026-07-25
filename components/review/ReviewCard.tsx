@@ -16,13 +16,14 @@ export default function ReviewCard({ review }: ReviewCardProps) {
   return (
     <div className="bg-card rounded-lg shadow-md p-6 h-full flex flex-col">
       <div className="flex items-center gap-4 mb-4">
-        <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-          <Image
-            src={avatarUrl}
-            alt={review.visitorName}
-            fill
-            className="object-cover"
-          />
+         <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+           <Image
+             src={avatarUrl}
+             alt={review.visitorName}
+             fill
+             sizes="64px"
+             className="object-cover"
+           />
         </div>
         
         <div className="flex-1 min-w-0">

@@ -142,12 +142,13 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                   <div className="relative h-64 md:h-80 w-full">
                     {allImages.length > 1 ? (
                       <div className="relative h-full w-full group">
-                        <SafeImage
-                          src={getPlaceholderImage(allImages[activeImageIndex])}
-                          alt={pkg.name}
-                          fill
-                          className="object-cover"
-                        />
+                         <SafeImage
+                           src={getPlaceholderImage(allImages[activeImageIndex])}
+                           alt={pkg.name}
+                           fill
+                           sizes="(max-width: 768px) 100vw, 90vw"
+                           className="object-cover"
+                         />
                         {allImages.length > 1 && (
                           <>
                             <button
@@ -184,22 +185,23 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                         )}
                       </div>
                     ) : (
-                      <SafeImage
-                        src={getPlaceholderImage(pkg.thumbnail)}
-                        alt={pkg.name}
-                        fill
-                        className="object-cover"
-                      />
+                       <SafeImage
+                         src={getPlaceholderImage(pkg.thumbnail)}
+                         alt={pkg.name}
+                         fill
+                         sizes="(max-width: 768px) 100vw, 90vw"
+                         className="object-cover"
+                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                     
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <Badge className="bg-secondary text-white mb-3">
-                        {pkg.category}
-                      </Badge>
-                      <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-2">
-                        {pkg.name}
-                      </h2>
+                     <div className="absolute bottom-6 left-6 right-6">
+                       <Badge className="bg-secondary text-white mb-3">
+                         {pkg.category}
+                       </Badge>
+                       <h2 className="font-heading text-3xl md:text-4xl font-bold mb-2" style={{ color: '#22c55e' }}>
+                         {pkg.name}
+                       </h2>
                       <div className="flex flex-wrap items-center gap-4 text-white">
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
@@ -293,12 +295,13 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                                   className="group text-left bg-background-light rounded-lg overflow-hidden hover:shadow-lg transition-all"
                                 >
                                   <div className="relative h-32 w-full">
-                                    <SafeImage
-                                      src={getPlaceholderImage(destination.images[0])}
-                                      alt={destination.name}
-                                      fill
-                                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                                    />
+                                   <SafeImage
+                                     src={getPlaceholderImage(destination.images[0])}
+                                     alt={destination.name}
+                                     fill
+                                     sizes="(max-width: 768px) 50vw, 33vw"
+                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
+                                   />
                                   </div>
                                   <div className="p-3">
                                     <h4 className="font-semibold text-sm text-text-primary group-hover:text-primary transition-colors line-clamp-1">
@@ -368,12 +371,13 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                                   className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group"
                                   onClick={() => handleImageClick(idx)}
                                 >
-                                  <SafeImage
-                                    src={getPlaceholderImage(image)}
-                                    alt={`${pkg.name} - Photo ${idx + 1}`}
-                                    fill
-                                    className="object-cover group-hover:scale-110 transition-transform duration-300"
-                                  />
+                                   <SafeImage
+                                     src={getPlaceholderImage(image)}
+                                     alt={`${pkg.name} - Photo ${idx + 1}`}
+                                     fill
+                                     sizes="(max-width: 768px) 50vw, 33vw"
+                                     className="object-cover group-hover:scale-110 transition-transform duration-300"
+                                   />
                                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                                     <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity">
                                       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -541,11 +545,12 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             >
                               <div className="relative h-32 w-full">
                                 <SafeImage
-                                  src={getPlaceholderImage(related.thumbnail)}
-                                  alt={related.name}
-                                  fill
-                                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                                />
+                                   src={getPlaceholderImage(related.thumbnail)}
+                                   alt={related.name}
+                                   fill
+                                   sizes="(max-width: 768px) 100vw, 33vw"
+                                   className="object-cover group-hover:scale-110 transition-transform duration-300"
+                                 />
                               </div>
                               <div className="p-3">
                                 <h4 className="font-semibold text-sm text-text-primary group-hover:text-primary transition-colors line-clamp-1">

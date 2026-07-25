@@ -4,43 +4,60 @@ import { buildMetadata } from "@/lib/seo";
 import { createTouristAttractionSchema, createBreadcrumbSchema } from "@/lib/structuredData";
 import type { Metadata } from "next";
 import DestinationDetailContent from "@/components/destination/DestinationDetailContent";
+import DestinationDetailPageWrapper from "./DestinationDetailPageWrapper";
 import StructuredData from "@/components/seo/StructuredData";
 
 interface DestinationPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const destinations = getDestinations();
   return destinations.map((destination) => ({
     slug: destination.slug,
   }));
 }
 
-export function generateMetadata({ params }: DestinationPageProps): Metadata {
-  const destination = getDestinationBySlug(params.slug);
+export async function generateMetadata(
+  { params }: DestinationPageProps
+): Promise<Metadata> {
+
+  const { slug } = await params;
+
+  const destination = getDestinationBySlug(slug);
 
   if (!destination) {
     return buildMetadata({
       title: "Destination Not Found",
       description: "The destination you are looking for could not be found.",
-      path: `/destinations/${params.slug}`,
+      path: `/destinations/${slug}`,
     });
   }
 
   return buildMetadata({
     title: destination.name,
     description: destination.shortDescription,
-    path: `/destinations/${params.slug}`,
+    path: `/destinations/${slug}`,
     image: destination.images[0],
-    keywords: [destination.name, destination.category, "Nyalian Village", "Bali destination", ...destination.facilities.slice(0, 3)],
+    keywords: [
+      destination.name,
+      destination.category,
+      "Nyalian Village",
+      "Bali destination",
+      ...destination.facilities.slice(0, 3),
+    ],
   });
 }
 
-export default function DestinationPage({ params }: DestinationPageProps) {
-  const destination = getDestinationBySlug(params.slug);
+export default async function DestinationPage({
+  params,
+}: DestinationPageProps) {
+
+  const { slug } = await params;
+
+  const destination = getDestinationBySlug(slug);
 
   if (!destination) {
     notFound();
@@ -73,19 +90,21 @@ export default function DestinationPage({ params }: DestinationPageProps) {
   const breadcrumbSchema = createBreadcrumbSchema([
     { name: "Home", path: "/" },
     { name: "Destinations", path: "/destinations" },
-    { name: destination.name, path: `/destinations/${params.slug}` },
+    { name: destination.name, path: `/destinations/${slug}`, },
   ]);
 
   return (
     <>
       <StructuredData data={attractionSchema} />
       <StructuredData data={breadcrumbSchema} />
-      <DestinationDetailContent
-        destination={destination}
-        videos={destinationVideos}
-        relatedDestinations={finalRelated}
-        whatsappPhone={settings.whatsapp}
-      />
+      <DestinationDetailPageWrapper allDestinations={allDestinations}>
+        <DestinationDetailContent
+          destination={destination}
+          videos={destinationVideos}
+          relatedDestinations={finalRelated}
+          whatsappPhone={settings.whatsapp}
+        />
+      </DestinationDetailPageWrapper>
     </>
   );
 }

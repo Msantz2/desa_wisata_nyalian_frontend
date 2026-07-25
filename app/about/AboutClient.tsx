@@ -1,15 +1,61 @@
 "use client";
 
-import Image from "next/image";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import HeroSlideshow from "@/components/shared/HeroSlideshow";
 import ImageGallery from "@/components/gallery/ImageGallery";
 import GoogleMap from "@/components/maps/GoogleMap";
 import Coordinates from "@/components/maps/Coordinates";
 import NavigationButton from "@/components/maps/NavigationButton";
 import WhatsAppCTA from "@/components/shared/WhatsAppCTA";
-import { getPlaceholderImage } from "@/lib/placeholderImage";
 import type { VillageProfile } from "@/types/village";
 import type { SiteSettings } from "@/types/settings";
+
+// Same hero images as Home page
+const HERO_IMAGES = [
+  "/images/Desa Nyalian_1.webp",
+  "/images/Desa Nyalian_2.webp",
+  "/images/Desa Nyalian_3.webp",
+  "/images/Desa Nyalian_4.webp",
+  "/images/Desa Nyalian_5.webp",
+  "/images/Desa Nyalian_6.webp",
+  "/images/Desa Nyalian_7.webp",
+  "/images/Desa Nyalian_8.webp",
+  "/images/Desa Nyalian_9.webp",
+  "/images/Desa Nyalian_10.webp",
+  "/images/Desa Nyalian_11.webp",
+  "/images/Desa Nyalian_12.webp",
+  "/images/Desa Nyalian_13.webp",
+  "/images/Desa Nyalian_14.webp",
+  "/images/Jamu Sirkuma_1.webp",
+  "/images/Jamu Sirkuma_2.webp",
+  "/images/Jamu Sirkuma_3.webp",
+  "/images/Pura Puncak Sari_1.webp",
+  "/images/Pura Puncak Sari_2.webp",
+  "/images/Pura Tirta Tadah Uwuk_1.webp",
+  "/images/Pura Tirta Tadah Uwuk_2.webp",
+  "/images/Pura Tirta Tadah Uwuk_3.webp",
+  "/images/Pura Tirta Tadah Uwuk_4.webp",
+  "/images/Pura Tirta Tadah Uwuk_5.webp",
+  "/images/Pura Tirta Tadah Uwuk_6.webp",
+  "/images/Pura Tirta Tadah Uwuk_7.webp",
+  "/images/Pura Tirta Tadah Uwuk_8.webp",
+  "/images/Pura Tirta Tadah Uwuk_9.webp",
+  "/images/Pura Tirta Tadah Uwuk_10.webp",
+  "/images/Pura Tirtha Harum_1.webp",
+  "/images/Pura Tirtha Harum_2.webp",
+  "/images/Pura Tirtha Harum_3.webp",
+  "/images/Pura Tirtha Harum_4.webp",
+  "/images/Pura Tirtha Harum_5.webp",
+  "/images/Pura Tirtha Harum_6.webp",
+  "/images/Pura Tirtha Harum_7.webp",
+  "/images/Pura Tirtha Harum_8.webp",
+  "/images/Sanggar Seni Tirtapudja_1.webp",
+  "/images/Sanggar Seni Tirtapudja_2.webp",
+  "/images/Sanggar Seni Tirtapudja_3.webp",
+  "/images/Topi Capil_1.webp",
+  "/images/Topi Capil_2.webp",
+  "/images/Topi Capil_3.webp",
+];
 
 interface AboutClientProps {
   village: VillageProfile;
@@ -17,27 +63,9 @@ interface AboutClientProps {
 }
 
 export default function AboutClient({ village, settings }: AboutClientProps) {
-  const heroImageUrl = getPlaceholderImage(village.heroImage);
-
   return (
     <div className="pt-20">
-      <div className="relative h-[50vh] md:h-[60vh] w-full">
-        <Image
-          src={heroImageUrl}
-          alt={village.name}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <div className="container mx-auto max-w-7xl">
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-              {village.name}
-            </h1>
-          </div>
-        </div>
-      </div>
+      <HeroSlideshow images={HERO_IMAGES} title={village.name} />
 
       <div className="container mx-auto px-4 py-12 space-y-16">
         <div className="mb-8">

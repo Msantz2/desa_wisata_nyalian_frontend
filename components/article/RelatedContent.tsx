@@ -37,7 +37,7 @@ export default function RelatedContent({ destinations, packages }: RelatedConten
               <button
                 key={destination.id}
                 onClick={() => openDestinationModal(destination)}
-                className="group text-left bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="group block text-left bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 w-full"
               >
                 <div className="relative h-40 w-full">
                   <SafeImage
@@ -48,9 +48,9 @@ export default function RelatedContent({ destinations, packages }: RelatedConten
                   />
                 </div>
                 <div className="p-4">
-                  <h4 className="font-semibold text-text-primary group-hover:text-primary transition-colors line-clamp-1 mb-2">
-                    {destination.name}
-                  </h4>
+                   <h4 className="font-semibold text-[#22c55e] group-hover:text-primary transition-colors line-clamp-1 mb-2">
+                     {destination.name}
+                   </h4>
                   <p className="text-xs text-text-muted flex items-center">
                     <MapPin className="w-3 h-3 mr-1" />
                     {destination.location.village}
@@ -72,7 +72,7 @@ export default function RelatedContent({ destinations, packages }: RelatedConten
               <button
                 key={pkg.id}
                 onClick={() => openPackageModal(pkg)}
-                className="group text-left bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="group block text-left bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 w-full"
               >
                 <div className="relative h-40 w-full">
                   <SafeImage
@@ -83,9 +83,9 @@ export default function RelatedContent({ destinations, packages }: RelatedConten
                   />
                 </div>
                 <div className="p-4">
-                  <h4 className="font-semibold text-text-primary group-hover:text-primary transition-colors line-clamp-1 mb-2">
-                    {pkg.name}
-                  </h4>
+                   <h4 className="font-semibold text-[#22c55e] group-hover:text-primary transition-colors line-clamp-1 mb-2">
+                     {pkg.name}
+                   </h4>
                   <p className="text-xs text-text-muted flex items-center">
                     <Clock className="w-3 h-3 mr-1" />
                     {pkg.duration}

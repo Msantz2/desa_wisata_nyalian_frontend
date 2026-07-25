@@ -15,6 +15,9 @@ interface ImageGalleryProps {
 }
 
 export default function ImageGallery({ images, onImageClick, variant = "carousel" }: ImageGalleryProps) {
+  // Filter out empty, null, or invalid image entries
+  const validImages = images.filter((img) => img && typeof img === 'string' && img.trim().length > 0);
+  
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start" },
     [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
@@ -22,6 +25,15 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+
+  // Debug: Log what images are being rendered
+  if (process.env.NODE_ENV === 'development') {
+    console.log('=== ImageGallery RENDER DEBUG ===');
+    console.log('Variant:', variant);
+    console.log('Images received:', images);
+    console.log('Images after filtering:', validImages);
+    console.log('Filtered count:', validImages.length);
+  }
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -70,7 +82,7 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
   if (variant === "grid") {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((image, index) => (
+        {validImages.map((image, index) => (
           <div
             key={index}
             className="relative aspect-[4/3] rounded-lg overflow-hidden cursor-pointer group"
@@ -78,8 +90,9 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
           >
             <SafeImage
               src={getPlaceholderImage(image)}
-              alt={`Gallery image ${index + 1} of ${images.length}`}
+              alt={`Gallery image ${index + 1} of ${validImages.length}`}
               fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               className="object-cover group-hover:scale-110 transition-transform duration-300"
             />
           </div>
@@ -92,7 +105,7 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
     <div className="relative">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {images.map((image, index) => (
+          {validImages.map((image, index) => (
             <div
               key={index}
               className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-2"
@@ -103,8 +116,9 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
               >
                 <SafeImage
                   src={getPlaceholderImage(image)}
-                  alt={`Gallery image ${index + 1} of ${images.length}`}
+                  alt={`Gallery image ${index + 1} of ${validImages.length}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
                 />
               </div>
@@ -136,7 +150,7 @@ export default function ImageGallery({ images, onImageClick, variant = "carousel
       </Button>
 
       <div className="flex justify-center gap-2 mt-4">
-        {images.map((_, index) => (
+        {validImages.map((_, index) => (
           <button
             key={index}
             className={`w-2 h-2 rounded-full transition-all ${

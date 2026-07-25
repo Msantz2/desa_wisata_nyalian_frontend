@@ -62,13 +62,14 @@ function LightboxContent({
             <X className="w-6 h-6" />
           </Button>
 
-          <div className="relative w-full h-full flex items-center justify-center p-12">
-            <SafeImage
-              src={getPlaceholderImage(images[currentIndex])}
-              alt={`Image ${currentIndex + 1}`}
-              fill
-              className="object-contain"
-            />
+           <div className="relative w-full h-full flex items-center justify-center p-12">
+             <SafeImage
+               src={getPlaceholderImage(images[currentIndex])}
+               alt={`Image ${currentIndex + 1}`}
+               fill
+               sizes="90vw"
+               className="object-contain"
+             />
           </div>
 
           {images.length > 1 && (

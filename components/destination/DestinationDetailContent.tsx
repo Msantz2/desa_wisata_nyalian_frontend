@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { Clock, MapPin, Star, Ticket } from "lucide-react";
 import type { Destination } from "@/types/destination";
 import type { Video } from "@/types/video";
@@ -10,7 +9,6 @@ import { getPlaceholderImage } from "@/lib/placeholderImage";
 import { formatCurrency } from "@/utils/formatCurrency";
 import SectionContainer from "@/components/shared/SectionContainer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { getFacilityIcon } from "@/lib/facilityIcons";
 import ImageGallery from "@/components/gallery/ImageGallery";
@@ -22,6 +20,7 @@ import SocialShare from "@/components/shared/SocialShare";
 import WhatsAppCTA from "@/components/shared/WhatsAppCTA";
 import DestinationGrid from "./DestinationGrid";
 import SectionTitle from "@/components/shared/SectionTitle";
+import DetailHero from "@/components/shared/DetailHero";
 
 const Lightbox = dynamic(() => import("@/components/gallery/Lightbox"), { ssr: false });
 const VideoModal = dynamic(() => import("@/components/gallery/VideoModal"), { ssr: false });
@@ -57,37 +56,24 @@ export default function DestinationDetailContent({
 
   return (
     <>
-      <div className="relative h-[50vh] md:h-[60vh] w-full">
-        <Image
-          src={getPlaceholderImage(destination.images[0])}
-          alt={destination.name}
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <div className="container mx-auto max-w-7xl">
-            <Badge className="bg-primary text-white mb-4">
-              {destination.category}
-            </Badge>
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-              {destination.name}
-            </h1>
-            <div className="flex items-center gap-4 text-white">
-              <div className="flex items-center gap-1">
-                <Star className="w-5 h-5 fill-accent text-accent" />
-                <span className="font-semibold">{destination.rating.toFixed(1)}</span>
-                <span className="text-white/80">({destination.totalReviews} reviews)</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <MapPin className="w-5 h-5" />
-                <span>{destination.location.village}</span>
-              </div>
+      <DetailHero
+        backgroundImage={getPlaceholderImage(destination.images[0])}
+        title={destination.name}
+        category={destination.category}
+        metadata={
+          <div className="flex items-center gap-4 text-white">
+            <div className="flex items-center gap-1">
+              <Star className="w-5 h-5 fill-accent text-accent" />
+              <span className="font-semibold">{destination.rating.toFixed(1)}</span>
+              <span className="text-white/80">({destination.totalReviews} reviews)</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <MapPin className="w-5 h-5" />
+              <span>{destination.location.village}</span>
             </div>
           </div>
-        </div>
-      </div>
+        }
+      />
 
       <SectionContainer className="py-12">
         <div className="mb-8">
@@ -144,6 +130,17 @@ export default function DestinationDetailContent({
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">
                 Gallery
               </h2>
+              {(() => {
+                console.log('=== DESTINATION GALLERY DEBUG ===');
+                console.log('Destination ID:', destination.id);
+                console.log('Destination Name:', destination.name);
+                console.log('Gallery array length:', destination.images.length);
+                console.log('Gallery array:', destination.images);
+                destination.images.forEach((img, idx) => {
+                  console.log(`  [${idx}] ${img}`);
+                });
+                return null;
+              })()}
               <ImageGallery
                 images={destination.images}
                 onImageClick={handleImageClick}

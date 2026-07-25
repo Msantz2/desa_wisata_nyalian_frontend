@@ -16,13 +16,14 @@ export default function VideoCard({ video, onClick }: VideoCardProps) {
       onClick={onClick}
       className="h-full group relative block w-full rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
     >
-      <div className="relative aspect-video w-full">
-        <Image
-          src={thumbnailUrl}
-          alt={video.title}
-          fill
-          className="object-cover"
-        />
+       <div className="relative aspect-video w-full">
+         <Image
+           src={thumbnailUrl}
+           alt={video.title}
+           fill
+           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+           className="object-cover"
+         />
         
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
           <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-primary/90 group-hover:bg-primary group-hover:scale-110 transition-all flex items-center justify-center">

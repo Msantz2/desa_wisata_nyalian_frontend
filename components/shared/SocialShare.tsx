@@ -55,19 +55,9 @@ export default function SocialShare({ title, description, url }: SocialShareProp
     email: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${description}\n\n${shareUrl}`)}`,
   };
 
-  if (typeof window !== "undefined" && typeof navigator.share !== "undefined") {
-    return (
-      <Button
-        onClick={handleNativeShare}
-        variant="outline"
-        size="lg"
-        className="gap-2"
-      >
-        <Share2 className="w-5 h-5" />
-        Share
-      </Button>
-    );
-  }
+  const canNativeShare =
+    typeof navigator !== "undefined" &&
+    typeof navigator.share === "function";
 
   return (
     <Popover>
@@ -80,7 +70,15 @@ export default function SocialShare({ title, description, url }: SocialShareProp
       <PopoverContent className="w-80">
         <div className="space-y-3">
           <h4 className="font-semibold text-sm">Share this page</h4>
-          
+          {canNativeShare && (
+            <Button
+              onClick={handleNativeShare}
+              className="w-full mb-3"
+            >
+              <Share2 className="w-4 h-4 mr-2" />
+              Share using device
+            </Button>
+          )}
           <div className="grid grid-cols-2 gap-2">
             <a
               href={shareLinks.whatsapp}

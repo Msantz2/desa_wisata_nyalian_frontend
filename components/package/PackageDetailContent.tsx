@@ -54,14 +54,15 @@ export default function PackageDetailContent({
 
   return (
     <>
-      <div className="relative h-[50vh] md:h-[60vh] w-full">
-        <Image
-          src={getPlaceholderImage(pkg.thumbnail)}
-          alt={pkg.name}
-          fill
-          priority
-          className="object-cover"
-        />
+       <div className="relative h-[50vh] md:h-[60vh] w-full">
+         <Image
+           src={getPlaceholderImage(pkg.thumbnail)}
+           alt={pkg.name}
+           fill
+           sizes="100vw"
+           priority
+           className="object-cover"
+         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
           <div className="container mx-auto max-w-7xl">

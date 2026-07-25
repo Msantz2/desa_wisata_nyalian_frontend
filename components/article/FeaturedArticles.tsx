@@ -32,13 +32,14 @@ export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
               href={`/articles/${article.slug}`}
               className="group block bg-card rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="relative h-64 w-full overflow-hidden">
-                <Image
-                  src={imageUrl}
-                  alt={article.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
+               <div className="relative h-64 w-full overflow-hidden">
+                 <Image
+                   src={imageUrl}
+                   alt={article.title}
+                   fill
+                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                   className="object-cover group-hover:scale-110 transition-transform duration-300"
+                 />
                 <div className="absolute top-4 left-4">
                   <Badge className="bg-accent text-white text-sm">
                     {article.category}
@@ -46,10 +47,10 @@ export default function FeaturedArticles({ articles }: FeaturedArticlesProps) {
                 </div>
               </div>
               
-              <div className="p-6">
-                <h3 className="font-heading text-2xl font-bold text-text-primary mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                  {article.title}
-                </h3>
+               <div className="p-6">
+                 <h3 className="font-heading text-2xl font-bold text-[#22c55e] mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                   {article.title}
+                 </h3>
                 
                 <p className="text-text-secondary mb-4 line-clamp-3">
                   {article.excerpt}

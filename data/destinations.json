@@ -45,16 +45,18 @@
       "latitude": -8.499444,
       "longitude": 115.367222
     },
-    "images": [
-      "/images/Pura Tirta Tadah Uwuk_1.webp",
-      "/images/Pura Tirta Tadah Uwuk_2.webp",
-      "/images/Pura Tirta Tadah Uwuk_3.webp",
-      "/images/Pura Tirta Tadah Uwuk_4.webp",
-      "/images/Pura Tirta Tadah Uwuk_5.webp",
-      "/images/Pura Tirta Tadah Uwuk_6.webp",
-      "/images/Pura Tirta Tadah Uwuk_7.webp",
-      "/images/Pura Tirta Tadah Uwuk_8.webp"
-    ],
+     "images": [
+       "/images/Pura Tirta Tadah Uwuk_1.webp",
+       "/images/Pura Tirta Tadah Uwuk_2.webp",
+       "/images/Pura Tirta Tadah Uwuk_3.webp",
+       "/images/Pura Tirta Tadah Uwuk_4.webp",
+       "/images/Pura Tirta Tadah Uwuk_5.webp",
+       "/images/Pura Tirta Tadah Uwuk_6.webp",
+       "/images/Pura Tirta Tadah Uwuk_7.webp",
+       "/images/Pura Tirta Tadah Uwuk_8.webp",
+       "/images/Pura Tirta Tadah Uwuk_9.webp",
+       "/images/Pura Tirta Tadah Uwuk_10.webp"
+     ],
     "videos": [],
     "facilities": ["Parking Area", "Stone Stairway Access", "Public Toilets", "Changing Rooms", "Tadah Uwuk Coffee and Eatery"],
     "operatingHours": { "open": "Contact Pokdarwis", "close": "Contact Pokdarwis" },
@@ -63,30 +65,32 @@
     "totalReviews": 0,
     "featured": true
   },
-  {
-    "id": "DST003",
-    "slug": "pura-tirta-harum",
-    "name": "Pura Tirta Harum",
-    "category": "Nature & Agriculture",
-    "shortDescription": "Trek through forest ravine to a hidden clan temple — Nyalian's most adventurous discovery.",
-    "description": "A forest temple set within the Tukad Melangit river ravine, on the boundary between Nyalian and the neighboring village of Tamanbali. Reachable only on foot, it offers Nyalian's most immersive nature-and-heritage combination — a genuine trekking experience leading to a site of real ancestral significance. Pura Tirta Harum is the kawitan (clan-origin) temple of the Mahagotra Tirta Harum, part of the Satria Taman Bali lineage. Its Piodalan is held on Anggarakasih Juluwangi, a recurring date within the 210-day Balinese Pawukon calendar. The approach itself is part of the experience: the temple sits inside forest terrain at the edge of the Tukad Melangit gorge, accessible only by trekking in — vehicles can only reach an initial gateway starting point. Two trekking routes are documented: one starting from Desa Tamanbali, the other from Desa Nyalian.",
-    "location": {
-      "village": "Nyalian",
-      "district": "Banjarangkan",
-      "regency": "Klungkung",
-      "province": "Bali",
-      "address": "Tukad Melangit Ravine, Nyalian Village, Klungkung",
-      "latitude": -8.499444,
-      "longitude": 115.367222
-    },
-    "images": [
-      "/images/Pura Tirtha Harum_1.webp",
-      "/images/Pura Tirtha Harum_2.webp",
-      "/images/Pura Tirtha Harum_3.webp",
-      "/images/Pura Tirtha Harum_4.webp",
-      "/images/Pura Tirtha Harum_5.webp",
-      "/images/Pura Tirtha Harum_6.webp"
-    ],
+   {
+     "id": "DST003",
+     "slug": "pura-tirta-harum",
+     "name": "Pura Tirta Harum",
+     "category": "Nature & Agriculture",
+     "shortDescription": "Trek through forest ravine to a hidden clan temple — Nyalian's most adventurous discovery.",
+     "description": "A forest temple set within the Tukad Melangit river ravine, on the boundary between Nyalian and the neighboring village of Tamanbali. Reachable only on foot, it offers Nyalian's most immersive nature-and-heritage combination — a genuine trekking experience leading to a site of real ancestral significance. Pura Tirta Harum is the kawitan (clan-origin) temple of the Mahagotra Tirta Harum, part of the Satria Taman Bali lineage. Its Piodalan is held on Anggarakasih Juluwangi, a recurring date within the 210-day Balinese Pawukon calendar. The approach itself is part of the experience: the temple sits inside forest terrain at the edge of the Tukad Melangit gorge, accessible only by trekking in — vehicles can only reach an initial gateway starting point. Two trekking routes are documented: one starting from Desa Tamanbali, the other from Desa Nyalian.",
+     "location": {
+       "village": "Nyalian",
+       "district": "Banjarangkan",
+       "regency": "Klungkung",
+       "province": "Bali",
+       "address": "Tukad Melangit Ravine, Nyalian Village, Klungkung",
+       "latitude": -8.499444,
+       "longitude": 115.367222
+     },
+     "images": [
+       "/images/Pura Tirtha Harum_1.webp",
+       "/images/Pura Tirtha Harum_2.webp",
+       "/images/Pura Tirtha Harum_3.webp",
+       "/images/Pura Tirtha Harum_4.webp",
+       "/images/Pura Tirtha Harum_5.webp",
+       "/images/Pura Tirtha Harum_6.webp",
+       "/images/Pura Tirtha Harum_7.webp",
+       "/images/Pura Tirtha Harum_8.webp"
+     ],
     "videos": [],
     "facilities": ["Trekking Guide", "Forest Trail"],
     "operatingHours": { "open": "Contact Pokdarwis", "close": "Contact Pokdarwis" },
