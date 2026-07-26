@@ -2,6 +2,7 @@
 
 import Image, { ImageProps } from "next/image";
 import { useState, useCallback } from "react";
+import React from "react";
 import { ImageOff } from "lucide-react";
 
 type SafeImageProps = ImageProps & {
@@ -13,7 +14,7 @@ export default function SafeImage({ alt, onImageError, ...props }: SafeImageProp
   const [attemptCount, setAttemptCount] = useState(0);
   const MAX_ATTEMPTS = 2; // Allow 2 attempts before showing error
 
-  const handleError = useCallback((err: any) => {
+  const handleError = useCallback((err: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const newAttemptCount = attemptCount + 1;
     setAttemptCount(newAttemptCount);
     
@@ -30,7 +31,8 @@ export default function SafeImage({ alt, onImageError, ...props }: SafeImageProp
       setError(true);
       
       if (onImageError) {
-        onImageError(err instanceof Error ? err : new Error(errorMsg));
+        const nativeEvent = err.nativeEvent;
+        onImageError(nativeEvent instanceof Error ? nativeEvent : new Error(errorMsg));
       }
     } else {
       // Log but don't show error yet - might be transient

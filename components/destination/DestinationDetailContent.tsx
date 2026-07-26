@@ -130,17 +130,6 @@ export default function DestinationDetailContent({
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">
                 Gallery
               </h2>
-              {(() => {
-                console.log('=== DESTINATION GALLERY DEBUG ===');
-                console.log('Destination ID:', destination.id);
-                console.log('Destination Name:', destination.name);
-                console.log('Gallery array length:', destination.images.length);
-                console.log('Gallery array:', destination.images);
-                destination.images.forEach((img, idx) => {
-                  console.log(`  [${idx}] ${img}`);
-                });
-                return null;
-              })()}
               <ImageGallery
                 images={destination.images}
                 onImageClick={handleImageClick}

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
-import SectionContainer from "@/components/shared/SectionContainer";
 
 interface DetailHeroProps {
   backgroundImage: string;

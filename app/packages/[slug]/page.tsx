@@ -8,7 +8,6 @@ import { getPlaceholderImage } from "@/lib/placeholderImage";
 import { getSettings } from "@/lib/data";
 import SectionContainer from "@/components/shared/SectionContainer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Badge } from "@/components/ui/badge";
 import SocialShare from "@/components/shared/SocialShare";
 import WhatsAppCTA from "@/components/shared/WhatsAppCTA";
 import ImageGallery from "@/components/gallery/ImageGallery";
