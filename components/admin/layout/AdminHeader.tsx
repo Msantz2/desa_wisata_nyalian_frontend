@@ -2,11 +2,12 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Menu, Bell, User } from 'lucide-react';
+import { Menu, Bell } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { generateBreadcrumbs } from '@/lib/admin/breadcrumbs';
 import { useAdminLayout } from './AdminLayoutProvider';
 import { Button } from '@/components/ui/button';
+import { LogoutButton } from '@/components/admin/auth';
 
 export function AdminHeader() {
   const pathname = usePathname();
@@ -69,14 +70,8 @@ export function AdminHeader() {
             <Bell className="h-5 w-5" />
           </Button>
           
-          {/* User Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="User menu"
-          >
-            <User className="h-5 w-5" />
-          </Button>
+          {/* Logout Button */}
+          <LogoutButton />
         </div>
       </div>
     </header>

@@ -1,15 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import ScrollToTop from "@/components/layout/ScrollToTop";
-import { Toaster } from "sonner";
-import { getNavigation, getSettings } from "@/lib/data";
-import StructuredData from "@/components/seo/StructuredData";
-import { createOrganizationSchema } from "@/lib/structuredData";
-import { DestinationModalProvider } from "@/contexts/DestinationModalContext";
-import { PackageModalProvider } from "@/contexts/PackageModalContext";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -55,26 +46,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const navLinks = getNavigation();
-  const settings = getSettings();
-  const organizationSchema = createOrganizationSchema(settings);
-  
   return (
     <html
       lang="en"
       className={`${playfair.variable} ${inter.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
-        <StructuredData data={organizationSchema} />
-        <PackageModalProvider>
-          <DestinationModalProvider>
-            <Navbar navLinks={navLinks} />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <ScrollToTop />
-            <Toaster position="top-right" />
-          </DestinationModalProvider>
-        </PackageModalProvider>
+        {children}
       </body>
     </html>
   );
