@@ -16,6 +16,16 @@ export interface Article {
   category: string;
   author: string;
   publishedAt: string;
+  status: 'draft' | 'published';
+  createdAt: string;
+  updatedAt: string;
+  seo?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+    ogImage?: string | null;
+    canonicalUrl?: string | null;
+    noIndex?: boolean;
+  };
   tags: string[];
   featured: boolean;
   readTime?: string;

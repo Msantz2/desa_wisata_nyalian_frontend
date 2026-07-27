@@ -99,7 +99,6 @@ export default function ComponentsDemoPage() {
             <EmptyState
               title="No items found"
               description="Try adding something new to get started"
-              action={<Button>Create Item</Button>}
             />
           </div>
 
@@ -108,7 +107,6 @@ export default function ComponentsDemoPage() {
             <ErrorState
               title="Something went wrong"
               description="We encountered an error while loading your data"
-              action={<Button variant="outline">Try again</Button>}
             />
           </div>
         </div>

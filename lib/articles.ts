@@ -1,4 +1,4 @@
-import articlesData from "@/data/articles.json";
+import articlesData from "@/content/articles.json";
 import type { Article } from "@/types/article";
 
 export function getArticles(): Article[] {

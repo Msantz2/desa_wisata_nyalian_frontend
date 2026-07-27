@@ -10,7 +10,7 @@ import { VillageProfile } from "@/types/village";
 
 import destinationsData from "@/data/destinations.json";
 import packagesData from "@/data/packages.json";
-import articlesData from "@/data/articles.json";
+import articlesData from "@/content/articles.json";
 import reviewsData from "@/data/reviews.json";
 import faqData from "@/data/faq.json";
 import videosData from "@/data/videos.json";
