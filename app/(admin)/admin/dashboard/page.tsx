@@ -1,24 +1,26 @@
-import { AdminPageLayout } from '@/components/admin';
-import { SectionCard } from '@/components/admin';
+import { DashboardContent } from './content';
+import { initializeModules, moduleRegistry } from '@/lib/admin/modules';
 
 export const metadata = {
   title: 'Dashboard | Admin',
 };
 
-export default function DashboardPage() {
-  return (
-    <AdminPageLayout
-      title="Dashboard"
-      description="Welcome to the admin dashboard"
-    >
-      <SectionCard
-        title="Coming Soon"
-        description="Dashboard widgets and analytics will be implemented in future phases."
-      >
-        <div className="py-8 text-center text-muted-foreground">
-          <p>The admin foundation is ready for future dashboard features.</p>
-        </div>
-      </SectionCard>
-    </AdminPageLayout>
+export default async function DashboardPage() {
+  // Initialize all registered modules
+  initializeModules();
+
+  // Fetch summary data for all modules
+  const modules = moduleRegistry.getModules();
+  const summaryCards = await Promise.all(
+    modules.map(async (module) => ({
+      key: module.key,
+      label: module.label,
+      listRoute: module.listRoute,
+      createRoute: module.createRoute,
+      iconName: module.icon.name || 'FileText',
+      summary: await module.getSummary(),
+    }))
   );
+
+  return <DashboardContent summaryCards={summaryCards} />;
 }
