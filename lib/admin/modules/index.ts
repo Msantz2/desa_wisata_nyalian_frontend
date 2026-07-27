@@ -3,6 +3,11 @@ import { moduleRegistry } from './registry';
 import { articlesService } from './articles';
 
 export function initializeModules() {
+  // Prevent duplicate registration during hot reload or multiple renders
+  if (moduleRegistry.isInitialized()) {
+    return;
+  }
+
   moduleRegistry.register({
     key: 'articles',
     label: 'Articles',
@@ -11,6 +16,8 @@ export function initializeModules() {
     icon: FileText,
     getSummary: () => articlesService.getSummary(),
   });
+
+  moduleRegistry.markInitialized();
 }
 
 export { moduleRegistry };

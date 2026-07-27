@@ -29,8 +29,10 @@ interface ArticlePageProps {
 }
 
 export async function generateStaticParams() {
-  const articles = getArticles();
-  return articles.map((article) => ({
+  const allArticles = getArticles();
+  // Per 15-article-publishing.md Section 6: Only generate params for published articles
+  const publishedArticles = allArticles.filter((article) => article.status === 'published');
+  return publishedArticles.map((article) => ({
     slug: article.slug,
   }));
 }
@@ -39,7 +41,8 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
-  if (!article) {
+  if (!article || article.status !== 'published') {
+    // Per 15-article-publishing.md Section 6: Draft articles never appear in public
     return buildMetadata({
       title: "Article Not Found",
       description: "The article you are looking for could not be found.",
@@ -63,12 +66,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
-  if (!article) {
+  if (!article || article.status !== 'published') {
+    // Per 15-article-publishing.md Section 6: Draft articles never appear in public
     notFound();
   }
 
   const allArticles = getArticles();
-  const relatedArticles = allArticles
+  // Only show published articles in related content
+  const publishedArticles = allArticles.filter((a) => a.status === 'published');
+  
+  const relatedArticles = publishedArticles
     .filter((a) => {
       if (a.id === article.id) return false;
       const categoryMatch = a.category === article.category;
