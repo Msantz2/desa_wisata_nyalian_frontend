@@ -59,6 +59,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
   const [coverImageAlt, setCoverImageAlt] = useState('');
   const [status, setStatus] = useState<'draft' | 'published'>('draft');
   const [seo, setSeo] = useState<ArticleSeo | undefined>();
+  const [tags, setTags] = useState<string[]>([]);
+  const [featured, setFeatured] = useState(false);
+  const [readTime, setReadTime] = useState('');
 
   // Track original values for unsaved changes detection
   const [originalValues, setOriginalValues] = useState<Record<string, unknown>>({});
@@ -73,6 +76,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
     coverImageAlt,
     status,
     seo,
+    tags,
+    featured,
+    readTime,
   }) !== JSON.stringify(originalValues);
 
   useUnsavedChanges(hasChanges);
@@ -92,20 +98,23 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
             throw new Error(errorData.message || 'Failed to load article');
           }
 
-          const data = await response.json();
-          const loadedArticle = data.data;
+           const data = await response.json();
+           const loadedArticle = data.data;
 
-          setArticle(loadedArticle);
-          setTitle(loadedArticle.title);
-          setSlug(loadedArticle.slug);
-          setCategory(loadedArticle.category);
-          setExcerpt(loadedArticle.excerpt);
-          setAuthor(loadedArticle.author || '');
-          setContent(loadedArticle.content);
-          setCoverImage(loadedArticle.coverImage);
-          setCoverImageAlt(loadedArticle.coverImageAlt || '');
-          setStatus(loadedArticle.status);
-          setSeo(loadedArticle.seo);
+           setArticle(loadedArticle);
+           setTitle(loadedArticle.title);
+           setSlug(loadedArticle.slug);
+           setCategory(loadedArticle.category);
+           setExcerpt(loadedArticle.excerpt);
+           setAuthor(loadedArticle.author || '');
+           setContent(loadedArticle.content);
+           setCoverImage(loadedArticle.coverImage);
+           setCoverImageAlt(loadedArticle.coverImageAlt || '');
+           setStatus(loadedArticle.status);
+           setSeo(loadedArticle.seo);
+           setTags(loadedArticle.tags || []);
+           setFeatured(loadedArticle.featured || false);
+           setReadTime(loadedArticle.readTime || '');
 
           // Store original for unsaved changes detection
           setOriginalValues({
@@ -119,6 +128,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
             coverImageAlt: loadedArticle.coverImageAlt || '',
             status: loadedArticle.status,
             seo: loadedArticle.seo,
+            tags: loadedArticle.tags || [],
+            featured: loadedArticle.featured || false,
+            readTime: loadedArticle.readTime || '',
           });
         } catch (err) {
           setError(err instanceof Error ? err.message : 'Failed to load article');
@@ -186,6 +198,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
         coverImageAlt,
         status,
         seo,
+        tags,
+        featured,
+        readTime,
       };
 
       const url = mode === 'create' ? '/api/admin/articles' : `/api/admin/articles/${articleId}`;
@@ -222,6 +237,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
         coverImageAlt,
         status,
         seo,
+        tags,
+        featured,
+        readTime,
       });
 
       // In create mode, redirect to edit mode
@@ -242,6 +260,7 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
     try {
       setPublishing(true);
       setError(null);
+      setValidationErrors({});
 
       const response = await fetch(`/api/admin/articles/${articleId}/publish`, {
         method: 'POST',
@@ -273,6 +292,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
         coverImageAlt,
         status: 'published',
         seo,
+        tags,
+        featured,
+        readTime,
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to publish article');
@@ -286,6 +308,7 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
     try {
       setPublishing(true);
       setError(null);
+      setValidationErrors({});
 
       const response = await fetch(`/api/admin/articles/${articleId}/unpublish`, {
         method: 'POST',
@@ -294,6 +317,13 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
       const data = await response.json();
 
       if (!response.ok) {
+        if (data.errors) {
+          const errors: Record<string, string> = {};
+          data.errors.forEach((err: { field: string; message: string }) => {
+            errors[err.field] = err.message;
+          });
+          setValidationErrors(errors);
+        }
         throw new Error(data.message || 'Failed to unpublish article');
       }
 
@@ -310,6 +340,9 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
         coverImageAlt,
         status: 'draft',
         seo,
+        tags,
+        featured,
+        readTime,
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to unpublish article');
@@ -440,64 +473,85 @@ export function ArticleForm({ mode, articleId, onSuccess }: ArticleFormProps) {
        {/* Side Panel */}
        <div className="space-y-6">
          {/* Status & Publishing Controls */}
-         {article && (
-           <SectionCard title="Status & Publishing">
-             <FormSection>
-               <StatusBadge variant={status === 'published' ? 'success' : 'neutral'}>
-                 {status.charAt(0).toUpperCase() + status.slice(1)}
-               </StatusBadge>
-               <p className="text-muted-foreground text-sm mt-3">
-                 {status === 'draft'
-                   ? 'This article is not yet published. Publish it to make it visible on the public site.'
-                   : `Published on ${article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : 'unknown date'}`}
-               </p>
-               <div className="flex gap-2 mt-4">
-                 {status === 'draft' ? (
-                   <Button
-                     onClick={handlePublish}
-                     disabled={publishing || !title || !slug || !category}
-                     className="w-full"
-                     variant="default"
-                   >
-                     <Check className="w-4 h-4 mr-2" />
-                     {publishing ? 'Publishing...' : 'Publish'}
-                   </Button>
-                 ) : (
-                   <Button
-                     onClick={handleUnpublish}
-                     disabled={publishing}
-                     className="w-full"
-                     variant="outline"
-                   >
-                     Unpublish
-                   </Button>
-                 )}
-               </div>
-             </FormSection>
-           </SectionCard>
-         )}
+         {mode === 'edit' ? (
+           article ? (
+             <SectionCard title="Status & Publishing">
+               <FormSection>
+                 <StatusBadge variant={status === 'published' ? 'success' : 'neutral'}>
+                   {status.charAt(0).toUpperCase() + status.slice(1)}
+                 </StatusBadge>
+                 <p className="text-muted-foreground text-sm mt-3">
+                   {status === 'draft'
+                     ? 'This article is not yet published. Publish it to make it visible on the public site.'
+                     : `Published on ${article.publishedAt ? new Date(article.publishedAt).toLocaleDateString() : 'unknown date'}`}
+                 </p>
+                  <div className="flex gap-2 mt-4">
+                     {status === 'draft' ? (
+                       <Button
+                         onClick={handlePublish}
+                         disabled={publishing || !articleId || !title || !slug || !category || !content || !coverImage || !coverImageAlt || !excerpt}
+                         className="w-full"
+                         variant="default"
+                         title={
+                           !articleId ? 'Article not loaded yet'
+                           : !title ? 'Title required'
+                           : !slug ? 'Slug required'
+                           : !category ? 'Category required'
+                           : !content ? 'Content required'
+                           : !coverImage ? 'Cover image required'
+                           : !coverImageAlt ? 'Cover image alt text required for accessibility'
+                           : !excerpt ? 'Excerpt required'
+                           : 'Publish article'
+                         }
+                       >
+                         <Check className="w-4 h-4 mr-2" />
+                         {publishing ? 'Publishing...' : 'Publish'}
+                       </Button>
+                     ) : (
+                       <Button
+                         onClick={handleUnpublish}
+                         disabled={publishing || !articleId}
+                         className="w-full"
+                         variant="outline"
+                         title={!articleId ? 'Article not loaded yet' : 'Unpublish article'}
+                       >
+                         Unpublish
+                       </Button>
+                     )}
+                  </div>
+               </FormSection>
+             </SectionCard>
+           ) : (
+             <SectionCard title="Status & Publishing">
+               <FormSection>
+                 <p className="text-muted-foreground text-sm">Loading article...</p>
+               </FormSection>
+             </SectionCard>
+           )
+         ) : null}
 
-        {/* Cover Image */}
-        <SectionCard title="Cover Image">
-          <FormSection>
-            <ImageUploader
-              slug={slug}
-              type="cover"
-              currentImageUrl={coverImage}
-              onUpload={(url, alt) => {
-                setCoverImage(url);
-                setCoverImageAlt(alt);
-              }}
-              onRemove={() => {
-                setCoverImage('');
-                setCoverImageAlt('');
-              }}
-            />
-            {validationErrors.coverImage && (
-              <p className="text-red-500 text-sm mt-2">{validationErrors.coverImage}</p>
-            )}
-          </FormSection>
-        </SectionCard>
+         {/* Cover Image */}
+         <SectionCard title="Cover Image">
+           <FormSection>
+             <ImageUploader
+               slug={slug}
+               type="cover"
+               currentImageUrl={coverImage}
+               currentAltText={coverImageAlt}
+               onUpload={(url, alt) => {
+                 setCoverImage(url);
+                 setCoverImageAlt(alt);
+               }}
+               onRemove={() => {
+                 setCoverImage('');
+                 setCoverImageAlt('');
+               }}
+             />
+             {validationErrors.coverImage && (
+               <p className="text-red-500 text-sm mt-2">{validationErrors.coverImage}</p>
+             )}
+           </FormSection>
+         </SectionCard>
 
         {/* Category & Author */}
         <SectionCard title="Details">

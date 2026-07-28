@@ -4,7 +4,6 @@ import { buildMetadata } from "@/lib/seo";
 import { createArticleSchema, createBreadcrumbSchema } from "@/lib/structuredData";
 import StructuredData from "@/components/seo/StructuredData";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
 import { Calendar, User, Clock, ArrowLeft } from "lucide-react";
 import { getArticles, getArticleBySlug } from "@/lib/articles";
 import { getDestinations } from "@/lib/data";
@@ -21,6 +20,7 @@ import Image from "next/image";
 import { formatDate } from "@/utils/formatDate";
 import { calculateReadingTime } from "@/utils/calculateReadingTime";
 import { getPlaceholderImage } from "@/lib/placeholderImage";
+import { ArticleContentRenderer } from "@/components/article/ArticleContentRenderer";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     type: "article",
     publishedTime: article.publishedAt,
     author: article.author,
-    keywords: [article.category, ...article.tags],
+    keywords: [article.category, ...(article.tags || [])],
   });
 }
 
@@ -79,7 +79,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     .filter((a) => {
       if (a.id === article.id) return false;
       const categoryMatch = a.category === article.category;
-      const tagMatch = a.tags.some((tag) => article.tags.includes(tag));
+      const tagMatch = (a.tags || []).some((tag) => (article.tags || []).includes(tag));
       return categoryMatch || tagMatch;
     })
     .slice(0, 3);
@@ -146,7 +146,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             <div className="flex flex-wrap gap-2 mb-8">
-              {article.tags.map((tag) => (
+              {(article.tags || []).map((tag) => (
                 <Link key={tag} href={`/articles?tag=${encodeURIComponent(tag)}`}>
                   <Badge variant="outline" className="cursor-pointer hover:bg-primary/10">
                     {tag}
@@ -155,75 +155,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               ))}
             </div>
 
-            <article className="prose prose-lg max-w-none mb-12">
-              <ReactMarkdown
-                components={{
-                  h1: ({ children }) => (
-                    <h1 className="font-heading text-4xl font-bold text-text-primary mt-8 mb-4">
-                      {children}
-                    </h1>
-                  ),
-                  h2: ({ children }) => (
-                    <h2 className="font-heading text-3xl font-bold text-text-primary mt-8 mb-4">
-                      {children}
-                    </h2>
-                  ),
-                  h3: ({ children }) => (
-                    <h3 className="font-heading text-2xl font-bold text-text-primary mt-6 mb-3">
-                      {children}
-                    </h3>
-                  ),
-                  p: ({ children }) => (
-                    <p className="text-text-secondary leading-relaxed mb-4">
-                      {children}
-                    </p>
-                  ),
-                  ul: ({ children }) => (
-                    <ul className="list-disc list-inside mb-6 space-y-2">
-                      {children}
-                    </ul>
-                  ),
-                  ol: ({ children }) => (
-                    <ol className="list-decimal list-inside mb-6 space-y-2">
-                      {children}
-                    </ol>
-                  ),
-                  li: ({ children }) => (
-                    <li className="text-text-secondary ml-4">{children}</li>
-                  ),
-                  blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-primary pl-4 italic my-6 text-text-secondary">
-                      {children}
-                    </blockquote>
-                  ),
-                  a: ({ href, children }) => (
-                    <a
-                      href={href}
-                      className="text-primary hover:underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {children}
-                    </a>
-                  ),
-                  img: ({ src, alt }) => {
-                    if (!src || typeof src !== 'string') return null;
-                    return (
-                      <div className="relative w-full h-96 my-8 rounded-lg overflow-hidden">
-                         <Image
-                           src={src}
-                           alt={alt || ""}
-                           fill
-                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 800px"
-                           className="object-cover"
-                         />
-                      </div>
-                    );
-                  },
-                }}
-              >
-                {article.content}
-              </ReactMarkdown>
+            <article className="space-y-6 mb-12">
+              <ArticleContentRenderer content={article.content} />
             </article>
 
             {(relatedDestinations.length > 0 || relatedPackages.length > 0) && (

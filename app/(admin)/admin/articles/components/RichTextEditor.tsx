@@ -2,7 +2,6 @@
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -29,7 +28,7 @@ import {
   RotateCcw,
   RotateCw,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface RichTextEditorProps {
   value: string;
@@ -64,13 +63,13 @@ export function RichTextEditor({
         heading: {
           levels: [2, 3, 4],
         },
+        link: {
+          openOnClick: false,
+        },
       }),
       Underline,
       TextAlign.configure({
         types: ['heading', 'paragraph'],
-      }),
-      Link.configure({
-        openOnClick: false,
       }),
       Image.configure({
         allowBase64: false,
@@ -84,7 +83,16 @@ export function RichTextEditor({
       onChange(editor.getHTML());
     },
     editable: !disabled,
+    immediatelyRender: false,
   });
+
+  // Per 13-article-editor.md Section 9: Sync editor content when value prop changes
+  // This ensures when loading an existing article, the editor displays the loaded content
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
 
   if (!editor) return null;
 

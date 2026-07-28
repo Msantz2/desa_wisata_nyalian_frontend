@@ -16,6 +16,8 @@ const IMAGES_DIR = path.join(process.cwd(), 'public', 'images', 'articles');
 
 /**
  * Get next available filename for inline images
+ * Per 14-article-image.md Section 4: Sequential naming (article-1.webp, article-2.webp, etc.)
+ * Finds the highest existing number and returns next sequential number
  */
 async function getNextImageFilename(slug: string): Promise<string> {
   try {
@@ -25,8 +27,21 @@ async function getNextImageFilename(slug: string): Promise<string> {
     try {
       const files = await fs.readdir(articleDir);
       const inlineImages = files.filter((f) => f.match(/^article-\d+\.webp$/));
-      const nextNum = inlineImages.length + 1;
-      return `article-${nextNum}.webp`;
+      
+      if (inlineImages.length === 0) {
+        return 'article-1.webp';
+      }
+      
+      // Extract numbers from filenames and find maximum
+      const numbers = inlineImages
+        .map((f) => {
+          const match = f.match(/^article-(\d+)\.webp$/);
+          return match ? parseInt(match[1], 10) : 0;
+        })
+        .filter((n) => n > 0);
+      
+      const maxNum = Math.max(...numbers);
+      return `article-${maxNum + 1}.webp`;
     } catch {
       // Directory doesn't exist yet, start with article-1
       return 'article-1.webp';
@@ -125,9 +140,10 @@ export async function POST(request: NextRequest) {
      await writeFile(filePath, processedBuffer);
  
      // Return success with URL
-     // Per 20-api-articles.md Section 9 and 14-article-image.md: Return full path including /public/
-     // Format: /public/images/articles/{slug}/{filename}
-     const url = `/public/images/articles/${slug}/${filename}`;
+     // Per 20-api-articles.md Section 9 and 14-article-image.md
+     // Files stored in public/images/{slug}/ are served at /images/{slug}/
+     // Return client-facing URL without /public/ prefix (Next.js serves /public at /)
+     const url = `/images/articles/${slug}/${filename}`;
      return apiSuccess({ url, alt }, 200);
   } catch (error) {
     console.error('[API] Image upload error:', error);

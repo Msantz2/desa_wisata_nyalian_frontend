@@ -10,6 +10,7 @@ interface ImageUploaderProps {
   slug: string;
   type: 'cover' | 'content';
   currentImageUrl?: string;
+  currentAltText?: string;
   onUpload: (url: string, alt: string) => void;
   onRemove?: () => void;
   disabled?: boolean;
@@ -28,6 +29,7 @@ export function ImageUploader({
   slug,
   type,
   currentImageUrl,
+  currentAltText,
   onUpload,
   onRemove,
   disabled = false,
@@ -35,7 +37,7 @@ export function ImageUploader({
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<string | null>(currentImageUrl || null);
-  const [altText, setAltText] = useState('');
+  const [tempAltText, setTempAltText] = useState('');
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -64,12 +66,12 @@ export function ImageUploader({
       };
       reader.readAsDataURL(file);
 
-      // Upload via API per 20-api-articles.md Section 9
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('slug', slug);
-      formData.append('type', type);
-      formData.append('alt', altText);
+       // Upload via API per 20-api-articles.md Section 9
+       const formData = new FormData();
+       formData.append('file', file);
+       formData.append('slug', slug);
+       formData.append('type', type);
+       formData.append('alt', tempAltText);
 
       const response = await fetch('/api/admin/articles/upload-image', {
         method: 'POST',
@@ -84,8 +86,9 @@ export function ImageUploader({
 
       // Callback with uploaded URL and alt text
       // Per Phase 4.6.1: Image path is internal state, not shown to user
-      onUpload(data.data.url, altText);
-      setAltText('');
+      onUpload(data.data.url, tempAltText);
+      setTempAltText('');
+      setPreview(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Upload failed');
       setPreview(currentImageUrl || null);
@@ -108,9 +111,77 @@ export function ImageUploader({
       )}
 
       {/* Current Image Preview */}
-      {preview ? (
+      {currentImageUrl ? (
         <div className="space-y-3">
           {/* Preview Image - Per Phase 4.6.1: Show only preview, hide path */}
+          <div className="relative bg-muted rounded p-3 aspect-video flex items-center justify-center overflow-hidden">
+            <Image
+              src={currentImageUrl}
+              alt="Preview"
+              width={400}
+              height={225}
+              className="max-w-full max-h-full object-cover"
+            />
+          </div>
+
+           {/* Alt Text Input - Per 14-article-image.md §7 and §8: Optional but recommended */}
+           <div>
+             <label className="block text-sm font-medium mb-2">
+               Image Alt Text {type === 'cover' && '(recommended for SEO)'}
+             </label>
+             <Input
+               value={currentAltText || ''}
+               onChange={(e) => {
+                 const newAlt = e.target.value;
+                 onUpload(currentImageUrl, newAlt);
+               }}
+               placeholder="Describe the image for accessibility"
+               disabled={uploading}
+               maxLength={200}
+             />
+             <div className="flex justify-between mt-1">
+               <p className="text-xs text-muted-foreground">
+                 Shown if image fails to load. Important for screen readers.
+               </p>
+               <p className="text-xs text-muted-foreground">
+                 {(currentAltText || '').length} / 200
+               </p>
+             </div>
+           </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2">
+            <label className="flex-1">
+              <Button className="w-full" disabled={uploading || disabled} asChild>
+                <span>
+                  <Upload className="w-4 h-4 mr-2" />
+                  {uploading ? 'Uploading...' : 'Replace Image'}
+                </span>
+              </Button>
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleFileSelect}
+                disabled={uploading || disabled}
+                className="hidden"
+                aria-label="Upload replacement image"
+              />
+            </label>
+            {onRemove && (
+              <Button
+                variant="outline"
+                onClick={onRemove}
+                disabled={uploading || disabled}
+                title="Remove image"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+      ) : preview ? (
+        /* New preview during upload */
+        <div className="space-y-3">
           <div className="relative bg-muted rounded p-3 aspect-video flex items-center justify-center overflow-hidden">
             <Image
               src={preview}
@@ -121,14 +192,13 @@ export function ImageUploader({
             />
           </div>
 
-          {/* Alt Text Input - Per 14-article-image.md §7 and §8: Optional but recommended */}
           <div>
             <label className="block text-sm font-medium mb-2">
               Image Alt Text {type === 'cover' && '(recommended for SEO)'}
             </label>
             <Input
-              value={altText}
-              onChange={(e) => setAltText(e.target.value)}
+              value={tempAltText}
+              onChange={(e) => setTempAltText(e.target.value)}
               placeholder="Describe the image for accessibility"
               disabled={uploading}
               maxLength={200}
@@ -138,12 +208,11 @@ export function ImageUploader({
                 Shown if image fails to load. Important for screen readers.
               </p>
               <p className="text-xs text-muted-foreground">
-                {altText.length} / 200
+                {tempAltText.length} / 200
               </p>
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-2">
             <label className="flex-1">
               <Button className="w-full" disabled={uploading || disabled} asChild>

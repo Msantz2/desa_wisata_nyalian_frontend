@@ -100,6 +100,45 @@ function sanitizeContent(html: string): string {
 }
 
 /**
+ * Validate image references in content
+ * Per 17-article-validation.md Section 7
+ * Ensures all image URLs follow valid article image namespace pattern
+ * Detects and prevents invalid image references that would cause 404s
+ */
+function validateImageReferences(content: string): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+  
+  // Match HTML img tags: <img src="..." />
+  const imgTagRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi;
+  // Match markdown image syntax: ![alt](url)
+  const markdownImgRegex = /!\[[^\]]*\]\(([^)]+)\)/g;
+  
+  let match;
+  const validImagePath = /^\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i;
+  
+  // Check HTML img tags
+  while ((match = imgTagRegex.exec(content)) !== null) {
+    const src = match[1];
+    if (!validImagePath.test(src)) {
+      errors.push(`Invalid image URL: ${src}. Must be within /images/articles/{slug}/ namespace`);
+    }
+  }
+  
+  // Check markdown image syntax
+  while ((match = markdownImgRegex.exec(content)) !== null) {
+    const src = match[1];
+    if (!validImagePath.test(src)) {
+      errors.push(`Invalid image URL in markdown: ${src}. Must be within /images/articles/{slug}/ namespace`);
+    }
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
+/**
  * Read all articles from storage
  * Per 04-storage-strategy.md Section 7
  */
@@ -341,6 +380,16 @@ export async function createArticle(
     // Sanitize content per 06-security.md Section 6 and 17-article-validation.md Section 6
     const sanitizedContent = validatedInput.content ? sanitizeContent(validatedInput.content) : '';
     
+    // Validate image references per 17-article-validation.md Section 7
+    if (sanitizedContent) {
+      const imageValidation = validateImageReferences(sanitizedContent);
+      if (!imageValidation.valid) {
+        throw new ValidationError('Invalid image references in content', 
+          imageValidation.errors.map(err => ({ field: 'content', message: err }))
+        );
+      }
+    }
+    
     // Create article with proper typing
     const newArticle: FullArticle = {
       id: generateId(),
@@ -357,6 +406,11 @@ export async function createArticle(
       createdAt: now,
       updatedAt: now,
       coverImageAlt: validatedInput.coverImageAlt,
+      tags: (validatedInput as any).tags || [],
+      featured: (validatedInput as any).featured || false,
+      readTime: (validatedInput as any).readTime || '',
+      relatedDestinations: (validatedInput as any).relatedDestinations || [],
+      relatedPackages: (validatedInput as any).relatedPackages || [],
     };
 
     articles.push(newArticle);
@@ -424,6 +478,16 @@ export async function updateArticle(
 
     // Sanitize content per 06-security.md Section 6 and 17-article-validation.md Section 6
     const sanitizedContent = validatedInput.content ? sanitizeContent(validatedInput.content) : '';
+    
+    // Validate image references per 17-article-validation.md Section 7
+    if (sanitizedContent) {
+      const imageValidation = validateImageReferences(sanitizedContent);
+      if (!imageValidation.valid) {
+        throw new ValidationError('Invalid image references in content', 
+          imageValidation.errors.map(err => ({ field: 'content', message: err }))
+        );
+      }
+    }
 
     // Preserve id and createdAt, refresh updatedAt
     // Per 04-storage-strategy.md Section 5
@@ -441,6 +505,11 @@ export async function updateArticle(
       coverImageAlt: validatedInput.coverImageAlt,
       createdAt: existing.createdAt,
       updatedAt: now,
+      tags: (validatedInput as any).tags || existing.tags || [],
+      featured: (validatedInput as any).featured !== undefined ? (validatedInput as any).featured : (existing.featured || false),
+      readTime: (validatedInput as any).readTime || existing.readTime || '',
+      relatedDestinations: (validatedInput as any).relatedDestinations || existing.relatedDestinations || [],
+      relatedPackages: (validatedInput as any).relatedPackages || existing.relatedPackages || [],
       // If transitioning to published for first time, set publishedAt
       // Otherwise preserve existing publishedAt
       // Per 15-article-publishing.md Section 4.2

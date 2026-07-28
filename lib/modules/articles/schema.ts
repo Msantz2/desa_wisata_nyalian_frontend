@@ -27,6 +27,9 @@ export const SlugSchema = z
  * SEO METADATA SCHEMA
  * Per 17-article-validation.md, Section 4 and 16-article-seo.md, Section 2
  * All fields optional; client shows recommended length as guidance only
+ * 
+ * Image paths are stored as /images/articles/{slug}/ (served by Next.js from /public directory)
+ * Per 04-storage-strategy.md Section 4: Files in /public are served at /
  */
 export const ArticleSeoSchema = z
   .object({
@@ -43,7 +46,7 @@ export const ArticleSeoSchema = z
     ogImage: z
       .string()
       .regex(
-        /^\/public\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
+        /^\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
         'OG image must be a valid image path within article namespace'
       )
       .nullable()
@@ -61,12 +64,13 @@ export const ArticleSeoSchema = z
  * IMAGE METADATA SCHEMA
  * Per 17-article-validation.md, Section 7 and 20-api-articles.md, Section 9
  * Represents validated, uploaded image references
+ * Image paths are client-facing URLs (/images/articles/{slug}/, not /public/images/)
  */
 export const ImageMetadataSchema = z.object({
   url: z
     .string()
     .regex(
-      /^\/public\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
+      /^\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
       'Image URL must be a valid path within article namespace'
     ),
   alt: z
@@ -82,6 +86,14 @@ export const ImageMetadataSchema = z.object({
  * Permissive validation for articles being saved as draft
  * Required: title, slug, category
  * Optional: content, coverImage, excerpt, author, seo
+ * 
+ * Image paths are client-facing URLs (/images/articles/{slug}/, not /public/images/)
+ * 
+ * Note: If coverImage is provided, coverImageAlt MUST also be provided (non-empty).
+ * This prevents schema mismatches where drafts can be saved with empty alt text
+ * but then cannot be published. Per 14-article-image.md Section 7, alt text is
+ * optional for drafts but required for publishing - enforcing it here prevents
+ * users from creating unpublishable articles.
  */
 export const DraftArticleSchema = z.object({
   title: z
@@ -101,7 +113,7 @@ export const DraftArticleSchema = z.object({
   coverImage: z
     .string()
     .regex(
-      /^\/public\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
+      /^\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
       'Cover image must be a valid image path within article namespace'
     )
     .optional()
@@ -122,14 +134,34 @@ export const DraftArticleSchema = z.object({
     .optional()
     .or(z.literal('')),
   seo: ArticleSeoSchema,
+  tags: z.array(z.string()).default([]),
+  featured: z.boolean().default(false),
+  readTime: z.string().optional(),
+  relatedDestinations: z.array(z.string()).default([]),
+  relatedPackages: z.array(z.string()).default([]),
   status: z.literal('draft'),
-});
+}).refine(
+  (data) => {
+    // Per 14-article-image.md Section 7: If coverImage is present, coverImageAlt must be non-empty
+    // This prevents drafts with images but no alt text from being saved, which would block publishing
+    if (data.coverImage && data.coverImage.trim()) {
+      return data.coverImageAlt && data.coverImageAlt.trim().length > 0;
+    }
+    return true;
+  },
+  {
+    message: 'Cover image alt text is required when a cover image is provided',
+    path: ['coverImageAlt'],
+  }
+);
 
 /**
  * PUBLISH ARTICLE SCHEMA
  * Per 17-article-validation.md, Section 3 and 15-article-publishing.md, Section 4.3
  * Strict validation for articles transitioning to published state
  * All core fields required: title, slug, category, content, coverImage, coverImageAlt, excerpt
+ * 
+ * Image paths are client-facing URLs (/images/articles/{slug}/, not /public/images/)
  */
 export const PublishArticleSchema = z.object({
   title: z
@@ -153,14 +185,13 @@ export const PublishArticleSchema = z.object({
     .string()
     .min(1, 'Cover image is required to publish')
     .regex(
-      /^\/public\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
+      /^\/images\/articles\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\/.*\.(webp|jpg|jpeg|png)$/i,
       'Cover image must be a valid image path within article namespace'
     ),
-   coverImageAlt: z
-     .string()
-     .max(200, 'Cover image alt text must not exceed 200 characters')
-     .optional()
-     .or(z.literal('')),
+  coverImageAlt: z
+    .string()
+    .min(1, 'Cover image alt text is required for accessibility')
+    .max(200, 'Cover image alt text must not exceed 200 characters'),
   excerpt: z
     .string()
     .min(1, 'Excerpt is required to publish')
@@ -171,6 +202,11 @@ export const PublishArticleSchema = z.object({
     .optional()
     .or(z.literal('')),
   seo: ArticleSeoSchema,
+  tags: z.array(z.string()).default([]),
+  featured: z.boolean().default(false),
+  readTime: z.string().optional(),
+  relatedDestinations: z.array(z.string()).default([]),
+  relatedPackages: z.array(z.string()).default([]),
   status: z.literal('published'),
 });
 
@@ -214,6 +250,11 @@ export const FullArticleSchema = z.object({
   publishedAt: z.string().datetime().nullable(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
+  tags: z.array(z.string()).default([]),
+  featured: z.boolean().default(false),
+  readTime: z.string().optional(),
+  relatedDestinations: z.array(z.string()).default([]),
+  relatedPackages: z.array(z.string()).default([]),
 });
 
 /**
