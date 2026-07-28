@@ -20,8 +20,8 @@ export default function FAQPreview({ faqs }: FAQPreviewProps) {
   return (
     <SectionContainer>
       <SectionTitle
-        title="Frequently Asked Questions"
-        subtitle="Find answers to common questions about visiting Nyalian Village"
+        title="Pertanyaan yang Sering Diajukan"
+        subtitle="Temukan jawaban atas pertanyaan umum tentang mengunjungi Desa Nyalian"
       />
       
       <div className="max-w-3xl mx-auto mb-12">
@@ -31,7 +31,7 @@ export default function FAQPreview({ faqs }: FAQPreviewProps) {
       <div className="text-center">
         <Link href="/faq">
           <Button size="lg" variant="outline" className="font-semibold">
-            View All FAQ
+            Lihat Semua FAQ
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </Link>

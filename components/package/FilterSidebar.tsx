@@ -32,13 +32,13 @@ export default function FilterSidebar({
     <div className="space-y-6">
       <div>
         <h3 className="font-heading text-lg font-bold text-text-primary mb-4">
-          Category
+          Kategori
         </h3>
         <RadioGroup value={selectedCategory} onValueChange={onCategoryChange}>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="" id="category-all" />
             <Label htmlFor="category-all" className="cursor-pointer">
-              All Categories
+              Semua Kategori
             </Label>
           </div>
           {categories.map((category) => (
@@ -54,31 +54,31 @@ export default function FilterSidebar({
 
       <div className="border-t border-border pt-6">
         <h3 className="font-heading text-lg font-bold text-text-primary mb-4">
-          Duration
+          Durasi
         </h3>
         <RadioGroup value={selectedDuration} onValueChange={onDurationChange}>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="" id="duration-all" />
             <Label htmlFor="duration-all" className="cursor-pointer">
-              All Durations
+              Semua Durasi
             </Label>
           </div>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="half-day" id="duration-half" />
             <Label htmlFor="duration-half" className="cursor-pointer">
-              Half Day
+              Setengah Hari
             </Label>
           </div>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="full-day" id="duration-full" />
             <Label htmlFor="duration-full" className="cursor-pointer">
-              Full Day
+              Seharian Penuh
             </Label>
           </div>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="multi-day" id="duration-multi" />
             <Label htmlFor="duration-multi" className="cursor-pointer">
-              Multi-Day
+              Multi-Hari
             </Label>
           </div>
         </RadioGroup>
@@ -86,19 +86,19 @@ export default function FilterSidebar({
 
       <div className="border-t border-border pt-6">
         <h3 className="font-heading text-lg font-bold text-text-primary mb-4">
-          Price Range
+          Rentang Harga
         </h3>
         <RadioGroup value={selectedPriceRange} onValueChange={onPriceRangeChange}>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="" id="price-all" />
             <Label htmlFor="price-all" className="cursor-pointer">
-              All Prices
+              Semua Harga
             </Label>
           </div>
           <div className="flex items-center space-x-2 mb-3">
             <RadioGroupItem value="budget" id="price-budget" />
             <Label htmlFor="price-budget" className="cursor-pointer">
-              {PRICE_RANGE.BUDGET.label} (up to Rp {PRICE_RANGE.BUDGET.max.toLocaleString()})
+              {PRICE_RANGE.BUDGET.label} (hingga Rp {PRICE_RANGE.BUDGET.max.toLocaleString()})
             </Label>
           </div>
           <div className="flex items-center space-x-2 mb-3">
@@ -124,7 +124,7 @@ export default function FilterSidebar({
             onCheckedChange={(checked) => onFeaturedOnlyChange(checked as boolean)}
           />
           <Label htmlFor="featured" className="cursor-pointer">
-            Featured packages only
+            Paket unggulan saja
           </Label>
         </div>
       </div>

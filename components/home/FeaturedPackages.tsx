@@ -17,12 +17,12 @@ export default function FeaturedPackages({ packages }: FeaturedPackagesProps) {
   return (
     <SectionContainer background="section">
       <SectionTitle
-        title="Featured Tour Packages"
-        subtitle="Curated experiences combining the best of Nyalian Village"
+        title="Paket Wisata Unggulan"
+        subtitle="Pengalaman pilihan yang menggabungkan pesona Desa Nyalian"
       />
       
       {featured.length === 0 ? (
-        <EmptyState message="No featured packages available at the moment" />
+        <EmptyState message="Tidak ada paket wisata unggulan tersedia saat ini" />
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -34,7 +34,7 @@ export default function FeaturedPackages({ packages }: FeaturedPackagesProps) {
           <div className="text-center">
             <Link href="/packages">
               <Button size="lg" className="font-semibold">
-                View All Packages
+                Lihat Semua Paket
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>

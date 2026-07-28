@@ -28,8 +28,8 @@ export default function GalleryPreview({ images }: GalleryPreviewProps) {
   return (
     <SectionContainer>
       <SectionTitle
-        title="Photo Gallery"
-        subtitle="Explore the beauty of Nyalian Village through images"
+        title="Galeri Foto"
+        subtitle="Jelajahi keindahan Desa Nyalian melalui gambar"
       />
       
       <ImageGallery images={images} onImageClick={handleImageClick} />

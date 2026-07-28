@@ -16,9 +16,9 @@ import type { Article } from "@/types/article";
 const ITEMS_PER_PAGE = 9;
 
 const sortOptions = [
-  { label: "Newest", value: "newest" },
-  { label: "Oldest", value: "oldest" },
-  { label: "Alphabetical", value: "alphabetical" },
+  { label: "Terbaru", value: "newest" },
+  { label: "Tertua", value: "oldest" },
+  { label: "Alfabetis", value: "alphabetical" },
 ];
 
 interface ArticlesClientProps {
@@ -62,13 +62,13 @@ export default function ArticlesClient({ articles }: ArticlesClientProps) {
   return (
     <div className="container mx-auto px-4 py-12 pt-32 space-y-12">
       <div className="text-center">
-        <h1 className="font-heading text-4xl md:text-5xl font-bold text-text-primary mb-4">
-          Articles & Stories
-        </h1>
-        <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-          Explore stories, tips, and insights about Nyalian Village and Balinese culture
-        </p>
-      </div>
+         <h1 className="font-heading text-4xl md:text-5xl font-bold text-text-primary mb-4">
+           Artikel & Cerita
+         </h1>
+         <p className="text-lg text-text-secondary max-w-2xl mx-auto">
+           Jelajahi cerita, tips, dan wawasan tentang Desa Nyalian dan budaya Bali
+         </p>
+       </div>
 
       {featuredArticles.length > 0 && !searchTerm && activeCategory === "all" && (
         <FeaturedArticles articles={featuredArticles} />
@@ -76,11 +76,11 @@ export default function ArticlesClient({ articles }: ArticlesClientProps) {
 
       <div>
         <SearchInput
-          value={searchTerm}
-          onChange={setSearchTerm}
-          placeholder="Search articles..."
-          className="max-w-2xl mx-auto"
-        />
+           value={searchTerm}
+           onChange={setSearchTerm}
+           placeholder="Cari artikel..."
+           className="max-w-2xl mx-auto"
+         />
       </div>
 
       <div>
@@ -95,9 +95,9 @@ export default function ArticlesClient({ articles }: ArticlesClientProps) {
       </div>
 
       <div className="flex justify-between items-center">
-        <p className="text-text-muted">
-          {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"} found
-        </p>
+         <p className="text-text-muted">
+           {filteredArticles.length} {filteredArticles.length === 1 ? "artikel" : "artikel"} ditemukan
+         </p>
         <SortDropdown
           options={sortOptions}
           value={sortBy}
@@ -106,7 +106,7 @@ export default function ArticlesClient({ articles }: ArticlesClientProps) {
       </div>
 
       {paginatedArticles.length === 0 ? (
-        <EmptyState message="No articles found. Try using different keywords or browse all categories." />
+         <EmptyState message="Tidak ada artikel yang ditemukan. Coba gunakan kata kunci yang berbeda atau telusuri semua kategori." />
       ) : (
         <>
           <ArticleGrid articles={paginatedArticles} />

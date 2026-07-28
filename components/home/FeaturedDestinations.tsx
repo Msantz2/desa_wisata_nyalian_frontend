@@ -17,12 +17,12 @@ export default function FeaturedDestinations({ destinations }: FeaturedDestinati
   return (
     <SectionContainer>
       <SectionTitle
-        title="Featured Destinations"
-        subtitle="Explore the most popular attractions in Nyalian Village"
+        title="Destinasi Unggulan"
+        subtitle="Jelajahi atraksi paling populer di Desa Nyalian"
       />
       
       {featured.length === 0 ? (
-        <EmptyState message="No featured destinations available at the moment" />
+        <EmptyState message="Tidak ada destinasi unggulan tersedia saat ini" />
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -34,7 +34,7 @@ export default function FeaturedDestinations({ destinations }: FeaturedDestinati
           <div className="text-center">
             <Link href="/destinations">
               <Button size="lg" className="font-semibold">
-                View All Destinations
+                Lihat Semua Destinasi
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>

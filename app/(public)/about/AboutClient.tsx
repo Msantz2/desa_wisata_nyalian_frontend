@@ -1,16 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import HeroSlideshow from "@/components/shared/HeroSlideshow";
 import ImageGallery from "@/components/gallery/ImageGallery";
+import Lightbox from "@/components/gallery/Lightbox";
 import GoogleMap from "@/components/maps/GoogleMap";
 import Coordinates from "@/components/maps/Coordinates";
 import NavigationButton from "@/components/maps/NavigationButton";
 import WhatsAppCTA from "@/components/shared/WhatsAppCTA";
+import { Button } from "@/components/ui/button";
 import type { VillageProfile } from "@/types/village";
 import type { SiteSettings } from "@/types/settings";
 
-// Same hero images as Home page
 const HERO_IMAGES = [
   "/images/Desa Nyalian_1.webp",
   "/images/Desa Nyalian_2.webp",
@@ -63,6 +65,14 @@ interface AboutClientProps {
 }
 
 export default function AboutClient({ village, settings }: AboutClientProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+    setLightboxOpen(true);
+  };
+
   return (
     <div className="pt-20">
       <HeroSlideshow images={HERO_IMAGES} title={village.name} />
@@ -71,8 +81,8 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
         <div className="mb-8">
           <Breadcrumb
             items={[
-              { label: "Home", href: "/" },
-              { label: "About", href: "/about" },
+              { label: "Beranda", href: "/" },
+              { label: "Tentang", href: "/about" },
             ]}
           />
         </div>
@@ -80,16 +90,102 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
         <div className="max-w-4xl mx-auto space-y-12">
           <section>
             <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-              Village History
+              Pengenalan
             </h2>
             <p className="text-text-secondary leading-relaxed">
-              {village.history}
+              {village.introduction}
             </p>
           </section>
 
           <section>
             <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-              Village Philosophy
+              Lokasi Geografis
+            </h2>
+            <p className="text-text-secondary leading-relaxed mb-6">
+              {village.geography.location}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div className="bg-card rounded-lg p-4 border border-border">
+                <h3 className="font-semibold text-text-primary mb-2">Luas Wilayah</h3>
+                <p className="text-text-secondary">{village.geography.area}</p>
+              </div>
+              <div className="bg-card rounded-lg p-4 border border-border">
+                <h3 className="font-semibold text-text-primary mb-2">Jumlah Banjar</h3>
+                <p className="text-text-secondary">{village.geography.banjarCount} banjar</p>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg p-4 border border-border mb-6">
+              <h3 className="font-semibold text-text-primary mb-3">Daftar Banjar</h3>
+              <ul className="list-disc list-inside space-y-1 text-text-secondary">
+                {village.geography.banjarNames.map((banjar, index) => (
+                  <li key={index}>{banjar}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-card rounded-lg p-4 border border-border mb-6">
+              <h3 className="font-semibold text-text-primary mb-3">Batas Administratif</h3>
+              <div className="space-y-2 text-text-secondary text-sm">
+                <p><span className="font-semibold">Utara:</span> {village.geography.administrativeBorders.north}</p>
+                <p><span className="font-semibold">Timur:</span> {village.geography.administrativeBorders.east}</p>
+                <p><span className="font-semibold">Selatan:</span> {village.geography.administrativeBorders.south}</p>
+                <p><span className="font-semibold">Barat:</span> {village.geography.administrativeBorders.west}</p>
+              </div>
+            </div>
+            <p className="text-text-secondary leading-relaxed">
+              {village.geography.landscape}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
+              Demografi
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="bg-card rounded-lg p-4 border border-border text-center">
+                <p className="text-sm text-text-secondary mb-1">Total Penduduk</p>
+                <p className="text-2xl font-bold text-text-primary">{village.demographics.population.toLocaleString()}</p>
+                <p className="text-xs text-text-secondary mt-1">Tahun {village.demographics.populationYear}</p>
+              </div>
+              <div className="bg-card rounded-lg p-4 border border-border text-center">
+                <p className="text-sm text-text-secondary mb-1">Laki-laki / Perempuan</p>
+                <p className="text-2xl font-bold text-text-primary">{village.demographics.males.toLocaleString()} / {village.demographics.females.toLocaleString()}</p>
+              </div>
+              <div className="bg-card rounded-lg p-4 border border-border text-center">
+                <p className="text-sm text-text-secondary mb-1">Rumah Tangga</p>
+                <p className="text-2xl font-bold text-text-primary">{village.demographics.households.toLocaleString()}</p>
+              </div>
+            </div>
+            <div className="bg-card rounded-lg p-4 border border-border mb-6">
+              <p className="text-sm text-text-secondary">
+                <span className="font-semibold">Agama:</span> {village.demographics.religion}
+              </p>
+            </div>
+            <p className="text-text-secondary leading-relaxed">
+              {village.demographics.description}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
+              Kehidupan Sosial, Adat, dan Komunitas
+            </h2>
+            <p className="text-text-secondary leading-relaxed">
+              {village.socialCulturalLife}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
+              Asal Usul Nama &quot;Nyalian&quot;
+            </h2>
+            <p className="text-text-secondary leading-relaxed">
+              {village.origin}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
+              Filosofi Desa
             </h2>
             <p className="text-text-secondary leading-relaxed">
               {village.philosophy}
@@ -98,7 +194,7 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
 
           <section>
             <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-              Vision
+              Visi
             </h2>
             <p className="text-text-secondary leading-relaxed">
               {village.vision}
@@ -107,7 +203,7 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
 
           <section>
             <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-              Mission
+              Misi
             </h2>
             <ul className="list-disc list-inside space-y-3 text-text-secondary leading-relaxed">
               {village.mission.map((item, index) => (
@@ -117,15 +213,24 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
               ))}
             </ul>
           </section>
+
+          <section>
+            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
+              Warisan Budaya
+            </h2>
+            <p className="text-text-secondary leading-relaxed">
+              {village.culturalHeritage}
+            </p>
+          </section>
         </div>
 
         <div>
           <div className="text-center mb-8">
             <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-              Tourism Potential
+              Potensi Pariwisata
             </h2>
             <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-              Nyalian Village offers diverse attractions that showcase the natural beauty and cultural richness of Balinese mountain life.
+              Desa Nyalian menawarkan daya tarik beragam yang menampilkan keindahan alam dan kekayaan budaya kehidupan pegunungan Bali.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -137,37 +242,44 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <section>
-            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-              Cultural Heritage
-            </h2>
-            <p className="text-text-secondary leading-relaxed">
-              {village.culturalHeritage}
-            </p>
-          </section>
-        </div>
-
         <div>
           <div className="text-center mb-8">
-            <h2 className="font-heading text-3xl font-bold text-text-primary">
-              Photo Gallery
+            <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
+              Galeri Foto
             </h2>
           </div>
-          <ImageGallery images={village.gallery} variant="grid" />
+          <ImageGallery images={village.gallery} variant="grid" onImageClick={handleImageClick} />
+          <div className="flex justify-center mt-8">
+            <Button
+              onClick={() => {
+                setSelectedImageIndex(0);
+                setLightboxOpen(true);
+              }}
+              className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3"
+            >
+              Lihat Semua Foto
+            </Button>
+          </div>
         </div>
+
+        <Lightbox
+          images={village.gallery}
+          initialIndex={selectedImageIndex}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+        />
 
         <div>
           <div className="text-center mb-8">
             <h2 className="font-heading text-3xl font-bold text-text-primary">
-              Location
+              Lokasi
             </h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <GoogleMap
                 embedUrl={settings.googleMapsEmbed}
-                title="Nyalian Village Location"
+                title="Lokasi Desa Nyalian"
               />
             </div>
             <div className="space-y-4">
@@ -175,7 +287,7 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
                 <div className="flex items-start gap-3">
                   <div className="w-5 h-5 text-primary mt-1 flex-shrink-0">📍</div>
                   <div className="space-y-1">
-                    <h3 className="font-semibold text-text-primary">Location</h3>
+                    <h3 className="font-semibold text-text-primary">Lokasi</h3>
                     <p className="text-sm text-text-secondary">{settings.address}</p>
                   </div>
                 </div>
@@ -187,7 +299,7 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
               <NavigationButton
                 latitude={settings.latitude}
                 longitude={settings.longitude}
-                label="Get Directions"
+                label="Dapatkan Arah"
               />
             </div>
           </div>
@@ -195,14 +307,14 @@ export default function AboutClient({ village, settings }: AboutClientProps) {
 
         <div className="max-w-2xl mx-auto text-center bg-background-section rounded-lg p-8">
           <h3 className="font-heading text-2xl font-bold text-text-primary mb-4">
-            Plan Your Visit
+            Rencanakan Kunjungan Anda
           </h3>
           <p className="text-text-secondary mb-6">
-            Contact us on WhatsApp for reservations, tour packages, or any questions about visiting Nyalian Village.
+            Hubungi kami melalui WhatsApp untuk reservasi, paket tur, atau pertanyaan apa pun tentang mengunjungi Desa Nyalian.
           </p>
           <WhatsAppCTA
             phone={settings.whatsapp}
-            message="Hello! I would like to learn more about Nyalian Village."
+            message="Halo! Saya ingin tahu lebih lanjut tentang Desa Nyalian."
           />
         </div>
       </div>

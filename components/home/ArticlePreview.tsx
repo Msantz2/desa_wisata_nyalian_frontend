@@ -29,8 +29,8 @@ export default function ArticlePreview({ articles }: ArticlePreviewProps) {
   return (
     <SectionContainer background="section">
       <SectionTitle
-        title="Latest Articles"
-        subtitle="Explore stories, tips, and insights about Nyalian Village"
+        title="Artikel Terbaru"
+        subtitle="Jelajahi cerita, tips, dan wawasan tentang Desa Nyalian"
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -42,7 +42,7 @@ export default function ArticlePreview({ articles }: ArticlePreviewProps) {
       <div className="text-center">
         <Link href="/articles">
           <Button size="lg" className="font-semibold">
-            View All Articles
+            Lihat Semua Artikel
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </Link>

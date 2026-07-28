@@ -21,10 +21,10 @@ import { Button } from "@/components/ui/button";
 import DestinationModal from "@/components/destination/DestinationModal";
 
 const sortOptions = [
-  { label: "Featured", value: "featured" },
-  { label: "Name A-Z", value: "name-asc" },
-  { label: "Name Z-A", value: "name-desc" },
-  { label: "Highest Rating", value: "rating-desc" },
+  { label: "Unggulan", value: "featured" },
+  { label: "Nama A-Z", value: "name-asc" },
+  { label: "Nama Z-A", value: "name-desc" },
+  { label: "Rating Tertinggi", value: "rating-desc" },
 ];
 
 interface DestinationsClientProps {
@@ -100,8 +100,8 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
     <>
       <SectionContainer className="py-12">
         <SectionTitle
-          title="Explore Destinations"
-          subtitle="Discover the natural beauty and cultural heritage of Nyalian Village"
+          title="Jelajahi Destinasi"
+          subtitle="Temukan keindahan alam dan warisan budaya Desa Nyalian"
           align="center"
         />
 
@@ -109,7 +109,7 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
         <SearchInput
           value={query}
           onChange={setQuery}
-          placeholder="Search destinations..."
+          placeholder="Cari destinasi..."
         />
       </div>
 
@@ -130,7 +130,7 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
         <div className="flex-1">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <p className="text-text-secondary">
-              {sortedResults.length} {sortedResults.length === 1 ? "destination" : "destinations"} found
+              {sortedResults.length} {sortedResults.length === 1 ? "destinasi" : "destinasi"} ditemukan
             </p>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -140,7 +140,7 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
                 className="lg:hidden gap-2"
               >
                 <Filter className="w-4 h-4" />
-                Filters
+                Filter
               </Button>
 
               <SortDropdown
@@ -164,11 +164,11 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
             </>
           ) : (
             <div className="py-12">
-              <EmptyState message="No destinations found matching your criteria" />
+              <EmptyState message="Tidak ada destinasi yang cocok dengan kriteria pencarian Anda" />
               {hasActiveFilters && (
                 <div className="flex justify-center mt-6">
                   <Button onClick={handleClearFilters} variant="outline">
-                    Clear Filters
+                    Hapus Filter
                   </Button>
                 </div>
               )}
@@ -180,7 +180,7 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
       <FilterDrawer
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        title="Filter Destinations"
+        title="Filter Destinasi"
         onClear={handleClearFilters}
       >
         <FilterSidebar

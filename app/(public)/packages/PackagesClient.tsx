@@ -21,10 +21,10 @@ import PackageModal from "@/components/package/PackageModal";
 import { getDestinations } from "@/lib/data";
 
 const sortOptions = [
-  { label: "Featured", value: "featured" },
-  { label: "Lowest Price", value: "price-asc" },
-  { label: "Highest Price", value: "price-desc" },
-  { label: "Alphabetical", value: "alphabetical-asc" },
+  { label: "Unggulan", value: "featured" },
+  { label: "Harga Terendah", value: "price-asc" },
+  { label: "Harga Tertinggi", value: "price-desc" },
+  { label: "Alfabetis", value: "alphabetical-asc" },
 ];
 
 interface PackagesClientProps {
@@ -115,8 +115,8 @@ export default function PackagesClient({ packages }: PackagesClientProps) {
     <>
       <SectionContainer className="py-12">
       <SectionTitle
-        title="Tour Packages"
-        subtitle="Curated experiences combining the best of Nyalian Village"
+        title="Paket Tur"
+        subtitle="Pengalaman yang dikurasi menggabungkan yang terbaik dari Desa Nyalian"
         align="center"
       />
 
@@ -124,7 +124,7 @@ export default function PackagesClient({ packages }: PackagesClientProps) {
         <SearchInput
           value={query}
           onChange={setQuery}
-          placeholder="Search tour packages..."
+          placeholder="Cari paket tur..."
         />
       </div>
 
@@ -146,7 +146,7 @@ export default function PackagesClient({ packages }: PackagesClientProps) {
         <div className="flex-1">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
             <p className="text-text-secondary">
-              {sortedResults.length} {sortedResults.length === 1 ? "package" : "packages"} found
+              {sortedResults.length} {sortedResults.length === 1 ? "paket" : "paket"} ditemukan
             </p>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -156,7 +156,7 @@ export default function PackagesClient({ packages }: PackagesClientProps) {
                 className="lg:hidden gap-2"
               >
                 <Filter className="w-4 h-4" />
-                Filters
+                Filter
               </Button>
 
               <SortDropdown
@@ -180,11 +180,11 @@ export default function PackagesClient({ packages }: PackagesClientProps) {
             </>
           ) : (
             <div className="py-12">
-              <EmptyState message="No packages found matching your criteria" />
+              <EmptyState message="Tidak ada paket yang cocok dengan kriteria Anda" />
               {hasActiveFilters && (
                 <div className="flex justify-center mt-6">
                   <Button onClick={handleClearFilters} variant="outline">
-                    Clear Filters
+                    Hapus Filter
                   </Button>
                 </div>
               )}
@@ -196,7 +196,7 @@ export default function PackagesClient({ packages }: PackagesClientProps) {
       <FilterDrawer
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        title="Filter Packages"
+        title="Filter Paket"
         onClear={handleClearFilters}
       >
         <FilterSidebar

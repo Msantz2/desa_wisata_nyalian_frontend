@@ -229,21 +229,21 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                       {/* Main Content */}
                       <div className="lg:col-span-2 space-y-8">
                         {/* Description */}
-                        <section>
-                          <h3 className="font-heading text-2xl font-bold text-text-primary mb-4">
-                            About This Package
-                          </h3>
-                          <p className="text-text-secondary leading-relaxed whitespace-pre-line">
-                            {pkg.description}
-                          </p>
-                        </section>
+                         <section>
+                           <h3 className="font-heading text-2xl font-bold text-text-primary mb-4">
+                             Tentang Paket Ini
+                           </h3>
+                           <p className="text-text-secondary leading-relaxed whitespace-pre-line">
+                             {pkg.description}
+                           </p>
+                         </section>
 
-                        {/* Highlights */}
-                        {pkg.highlights && pkg.highlights.length > 0 && (
-                          <section>
-                            <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                              Highlights
-                            </h3>
+                         {/* Highlights */}
+                         {pkg.highlights && pkg.highlights.length > 0 && (
+                           <section>
+                             <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
+                               Sorotan
+                             </h3>
                             <div className="space-y-2">
                               {pkg.highlights.map((highlight, idx) => (
                                 <div key={idx} className="flex items-start gap-2">
@@ -281,12 +281,12 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                           </section>
                         )}
 
-                        {/* Destinations Included */}
-                        {packageDestinations.length > 0 && (
-                          <section>
-                            <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                              Destinations Included
-                            </h3>
+                         {/* Destinations Included */}
+                         {packageDestinations.length > 0 && (
+                           <section>
+                             <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
+                               Destinasi yang Disertakan
+                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               {packageDestinations.map((destination) => (
                                 <button
@@ -318,52 +318,52 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                           </section>
                         )}
 
-                        {/* Inclusions & Exclusions */}
-                        <section>
-                          <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                            What&apos;s Included & Excluded
-                          </h3>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Included */}
-                            <div className="space-y-3">
-                              <h4 className="font-semibold text-text-primary flex items-center gap-2">
-                                <Check className="w-5 h-5 text-green-600" />
-                                Included
-                              </h4>
-                              <div className="space-y-2">
-                                {pkg.included.map((item, idx) => (
-                                  <div key={idx} className="flex items-start gap-2">
-                                    <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                                    <span className="text-sm text-text-secondary">{item}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
+                         {/* Inclusions & Exclusions */}
+                         <section>
+                           <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
+                             Yang Disertakan & Tidak Disertakan
+                           </h3>
+                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                             {/* Included */}
+                             <div className="space-y-3">
+                               <h4 className="font-semibold text-text-primary flex items-center gap-2">
+                                 <Check className="w-5 h-5 text-green-600" />
+                                 Disertakan
+                               </h4>
+                               <div className="space-y-2">
+                                 {pkg.included.map((item, idx) => (
+                                   <div key={idx} className="flex items-start gap-2">
+                                     <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                                     <span className="text-sm text-text-secondary">{item}</span>
+                                   </div>
+                                 ))}
+                               </div>
+                             </div>
 
-                            {/* Excluded */}
-                            <div className="space-y-3">
-                              <h4 className="font-semibold text-text-primary flex items-center gap-2">
-                                <XCircle className="w-5 h-5 text-red-600" />
-                                Not Included
-                              </h4>
-                              <div className="space-y-2">
-                                {pkg.excluded.map((item, idx) => (
-                                  <div key={idx} className="flex items-start gap-2">
-                                    <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                                    <span className="text-sm text-text-secondary">{item}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </section>
+                             {/* Excluded */}
+                             <div className="space-y-3">
+                               <h4 className="font-semibold text-text-primary flex items-center gap-2">
+                                 <XCircle className="w-5 h-5 text-red-600" />
+                                 Tidak Disertakan
+                               </h4>
+                               <div className="space-y-2">
+                                 {pkg.excluded.map((item, idx) => (
+                                   <div key={idx} className="flex items-start gap-2">
+                                     <XCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                                     <span className="text-sm text-text-secondary">{item}</span>
+                                   </div>
+                                 ))}
+                               </div>
+                             </div>
+                           </div>
+                         </section>
 
-                        {/* Photo Gallery */}
-                        {allImages.length > 1 && (
-                          <section>
-                            <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                              Photo Gallery
-                            </h3>
+                         {/* Photo Gallery */}
+                         {allImages.length > 1 && (
+                           <section>
+                             <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
+                               Galeri Foto
+                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                               {allImages.slice(0, 10).map((image, idx) => (
                                 <div
@@ -391,12 +391,12 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                           </section>
                         )}
 
-                        {/* Terms & Important Notes */}
-                        {pkg.terms && pkg.terms.length > 0 && (
-                          <section>
-                            <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                              Terms & Important Notes
-                            </h3>
+                         {/* Terms & Important Notes */}
+                         {pkg.terms && pkg.terms.length > 0 && (
+                           <section>
+                             <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
+                               Syarat & Catatan Penting
+                             </h3>
                             <div className="bg-background-light rounded-lg p-4 space-y-2">
                               {pkg.terms.map((term, idx) => (
                                 <div key={idx} className="flex items-start gap-2">
@@ -413,14 +413,14 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                       <div className="space-y-6">
                         <div className="bg-background-light rounded-lg p-6 space-y-4 sticky top-4">
                           <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                            Quick Information
+                            Informasi Cepat
                           </h3>
 
                           {/* Price */}
                           <div className="flex items-start gap-3">
                             <PackageIcon className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                             <div>
-                              <p className="text-sm font-semibold text-text-primary">Price</p>
+                              <p className="text-sm font-semibold text-text-primary">Harga</p>
                               <p className="text-lg font-bold text-primary">
                                 {typeof pkg.price === 'number' ? formatCurrency(pkg.price) : pkg.price}
                               </p>
@@ -431,7 +431,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                           <div className="flex items-start gap-3">
                             <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                             <div>
-                              <p className="text-sm font-semibold text-text-primary">Duration</p>
+                              <p className="text-sm font-semibold text-text-primary">Durasi</p>
                               <p className="text-sm text-text-secondary">{pkg.duration}</p>
                             </div>
                           </div>
@@ -440,7 +440,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                           <div className="flex items-start gap-3">
                             <Users className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                             <div>
-                              <p className="text-sm font-semibold text-text-primary">Group Capacity</p>
+                              <p className="text-sm font-semibold text-text-primary">Kapasitas Grup</p>
                               <p className="text-sm text-text-secondary">{pkg.capacity}</p>
                             </div>
                           </div>
@@ -450,7 +450,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             <div className="flex items-start gap-3">
                               <Globe className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="text-sm font-semibold text-text-primary">Languages</p>
+                                <p className="text-sm font-semibold text-text-primary">Bahasa</p>
                                 <p className="text-sm text-text-secondary">{pkg.quickInfo.languages.join(', ')}</p>
                               </div>
                             </div>
@@ -460,9 +460,9 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             <div className="flex items-start gap-3">
                               <Car className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="text-sm font-semibold text-text-primary">Transportation</p>
+                                <p className="text-sm font-semibold text-text-primary">Transportasi</p>
                                 <p className="text-sm text-text-secondary">
-                                  {pkg.quickInfo.transportation ? 'Included' : 'Not included'}
+                                  {pkg.quickInfo.transportation ? 'Disertakan' : 'Tidak disertakan'}
                                 </p>
                               </div>
                             </div>
@@ -472,7 +472,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             <div className="flex items-start gap-3">
                               <Calendar className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="text-sm font-semibold text-text-primary">Availability</p>
+                                <p className="text-sm font-semibold text-text-primary">Ketersediaan</p>
                                 <p className="text-sm text-text-secondary">{pkg.quickInfo.availability}</p>
                               </div>
                             </div>
@@ -482,7 +482,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             <div className="flex items-start gap-3">
                               <TrendingUp className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="text-sm font-semibold text-text-primary">Physical Level</p>
+                                <p className="text-sm font-semibold text-text-primary">Tingkat Fisik</p>
                                 <p className="text-sm text-text-secondary">{pkg.quickInfo.physicalLevel}</p>
                               </div>
                             </div>
@@ -492,7 +492,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                             <div className="flex items-start gap-3">
                               <Users className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                               <div>
-                                <p className="text-sm font-semibold text-text-primary">Suitable For</p>
+                                <p className="text-sm font-semibold text-text-primary">Cocok Untuk</p>
                                 <p className="text-sm text-text-secondary">{pkg.quickInfo.suitableFor.join(', ')}</p>
                               </div>
                             </div>
@@ -506,7 +506,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                               className="w-full"
                             >
                               <Phone className="w-4 h-4 mr-2" />
-                              Book Now
+                              Pesan Sekarang
                             </Button>
                             <Button
                               onClick={handleShare}
@@ -514,12 +514,12 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                               className="w-full"
                             >
                               <Share2 className="w-4 h-4 mr-2" />
-                              Share
+                              Bagikan
                             </Button>
                             <Link href="/plan-your-visit" className="block">
                               <Button variant="outline" className="w-full">
                                 <Phone className="w-4 h-4 mr-2" />
-                                Contact Pokdarwis
+                                Hubungi Pokdarwis
                               </Button>
                             </Link>
                           </div>
@@ -531,7 +531,7 @@ export default function PackageModal({ allPackages, allDestinations }: PackageMo
                     {relatedPackages.length > 0 && (
                       <section className="mt-12 pt-8 border-t border-border">
                         <h3 className="font-heading text-2xl font-bold text-text-primary mb-6">
-                          Similar Packages
+                          Paket Serupa
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {relatedPackages.map((related) => (

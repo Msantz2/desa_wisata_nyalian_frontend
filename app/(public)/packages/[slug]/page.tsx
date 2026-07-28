@@ -38,8 +38,8 @@ export async function generateMetadata({
 
   if (!pkg) {
     return buildMetadata({
-      title: "Package Not Found",
-      description: "The package you are looking for could not be found.",
+      title: "Paket Tidak Ditemukan",
+      description: "Paket yang Anda cari tidak dapat ditemukan.",
       path: `/packages/${slug}`,
     });
   }
@@ -49,7 +49,7 @@ export async function generateMetadata({
     description: pkg.shortDescription,
     path: `/packages/${slug}`,
     image: pkg.thumbnail,
-    keywords: [pkg.name, pkg.category, "Bali tour package", "Nyalian Village", ...pkg.highlights.slice(0, 3)],
+    keywords: [pkg.name, pkg.category, "Paket tur Bali", "Desa Nyalian", ...pkg.highlights.slice(0, 3)],
   });
 }
 
@@ -117,7 +117,7 @@ export default async function PackageDetailPage({
         <SectionContainer className="py-12">
           <Breadcrumb
             items={[
-              { label: "Packages", href: "/packages" },
+              { label: "Paket", href: "/packages" },
               { label: pkg.name },
             ]}
           />
@@ -126,7 +126,7 @@ export default async function PackageDetailPage({
             <div className="lg:col-span-2 space-y-8">
               <section>
                 <h2 className="font-heading text-2xl font-bold text-text-primary mb-4">
-                  Overview
+                  Gambaran Umum
                 </h2>
                 <p className="text-text-secondary leading-relaxed mb-4">
                   {pkg.description}
@@ -151,7 +151,7 @@ export default async function PackageDetailPage({
 
               <section>
                 <h2 className="font-heading text-2xl font-bold text-text-primary mb-4">
-                  Highlights
+                  Sorotan
                 </h2>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {pkg.highlights.map((highlight, index) => (
@@ -165,13 +165,13 @@ export default async function PackageDetailPage({
 
               <section>
                 <h2 className="font-heading text-2xl font-bold text-text-primary mb-4">
-                  What&apos;s Included
+                  Yang Disertakan
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="font-semibold text-text-primary mb-3 flex items-center gap-2">
                       <CheckCircle className="w-5 h-5 text-primary" />
-                      Included
+                      Disertakan
                     </h3>
                     <ul className="space-y-2">
                       {pkg.included.map((item, index) => (
@@ -185,7 +185,7 @@ export default async function PackageDetailPage({
                   <div>
                     <h3 className="font-semibold text-text-primary mb-3 flex items-center gap-2">
                       <XCircle className="w-5 h-5 text-text-muted" />
-                      Excluded
+                      Tidak Disertakan
                     </h3>
                     <ul className="space-y-2">
                       {pkg.excluded.map((item, index) => (
@@ -232,7 +232,7 @@ export default async function PackageDetailPage({
               {linkedDestinations.length > 0 && (
                 <section>
                   <h2 className="font-heading text-2xl font-bold text-text-primary mb-4">
-                    Destinations Included
+                    Destinasi yang Disertakan
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {linkedDestinations.map((destination) => (
@@ -247,7 +247,7 @@ export default async function PackageDetailPage({
 
               <section>
                 <h2 className="font-heading text-2xl font-bold text-text-primary mb-6">
-                  Gallery
+                  Galeri
                 </h2>
                 <ImageGallery images={pkg.gallery} variant="grid" />
               </section>
@@ -255,7 +255,7 @@ export default async function PackageDetailPage({
               {relatedPackages.length > 0 && (
                 <section>
                   <h2 className="font-heading text-2xl font-bold text-text-primary mb-4">
-                    You May Also Like
+                    Anda Mungkin Juga Suka
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {relatedPackages.map((relatedPkg) => (
@@ -279,27 +279,27 @@ export default async function PackageDetailPage({
               <div className="sticky top-24 space-y-6">
                 <div className="bg-card rounded-lg shadow-lg p-6 border border-border">
                   <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                    Booking Information
+                    Informasi Pemesanan
                   </h3>
                   
                   <div className="space-y-4 mb-6">
                     <div>
-                      <p className="text-sm text-text-muted mb-1">Starting from</p>
+                      <p className="text-sm text-text-muted mb-1">Mulai dari</p>
                       <p className="text-3xl font-bold text-primary">
                         {typeof pkg.price === 'number' ? formatCurrency(pkg.price) : pkg.price}
                       </p>
-                      <p className="text-sm text-text-muted">per person</p>
+                      <p className="text-sm text-text-muted">per orang</p>
                     </div>
 
                     <div className="border-t border-border pt-4">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-text-muted">Duration</span>
+                        <span className="text-text-muted">Durasi</span>
                         <span className="font-semibold text-text-primary">
                           {pkg.duration}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-text-muted">Group size</span>
+                        <span className="text-text-muted">Ukuran grup</span>
                         <span className="font-semibold text-text-primary">
                           {pkg.capacity}
                         </span>
@@ -310,12 +310,12 @@ export default async function PackageDetailPage({
                   <WhatsAppCTA
                     phone={settings.whatsapp}
                     message={whatsappMessage}
-                    label="Book This Package"
+                    label="Pesan Paket Ini"
                     size="lg"
                   />
 
                   <p className="text-xs text-text-muted mt-4 text-center">
-                    Contact us via WhatsApp for availability and booking
+                    Hubungi kami via WhatsApp untuk ketersediaan dan pemesanan
                   </p>
                 </div>
               </div>

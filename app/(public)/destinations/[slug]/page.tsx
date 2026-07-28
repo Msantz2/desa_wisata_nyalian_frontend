@@ -44,8 +44,8 @@ export async function generateMetadata(
     keywords: [
       destination.name,
       destination.category,
-      "Nyalian Village",
-      "Bali destination",
+      "Desa Nyalian",
+      "destinasi Bali",
       ...destination.facilities.slice(0, 3),
     ],
   });
@@ -88,8 +88,8 @@ export default async function DestinationPage({
 
   const attractionSchema = createTouristAttractionSchema(destination);
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", path: "/" },
-    { name: "Destinations", path: "/destinations" },
+    { name: "Beranda", path: "/" },
+    { name: "Destinasi", path: "/destinations" },
     { name: destination.name, path: `/destinations/${slug}`, },
   ]);
 

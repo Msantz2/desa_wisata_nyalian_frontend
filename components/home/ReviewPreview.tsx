@@ -15,8 +15,8 @@ export default function ReviewPreview({ reviews }: ReviewPreviewProps) {
   return (
     <SectionContainer>
       <SectionTitle
-        title="What Visitors Say"
-        subtitle="Hear from travelers who have experienced Nyalian Village"
+        title="Kata-Kata Pengunjung"
+        subtitle="Dengarkan dari para wisatawan yang telah mengalami Desa Nyalian"
       />
       
       <ReviewCarousel reviews={reviews} />

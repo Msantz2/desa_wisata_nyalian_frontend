@@ -5,11 +5,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { SiteSettings } from "@/types/settings";
-
-interface HeroProps {
-  settings: SiteSettings;
-}
 
 // ALL available images from /public/images folder
 const HERO_IMAGES = [
@@ -60,7 +55,7 @@ const HERO_IMAGES = [
 
 const SLIDE_INTERVAL = 10000; // 10 seconds
 
-export default function Hero({ settings }: HeroProps) {
+export default function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -109,49 +104,49 @@ export default function Hero({ settings }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h1 
-            className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6"
-            style={{ 
-              background: 'linear-gradient(135deg, #4ADE80 0%, #16A34A 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 20px rgba(74, 222, 128, 0.3))',
-            }}
-          >
-            {settings.siteName}
-          </h1>
-          <p 
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3 sm:mb-5 font-semibold text-white"
-            style={{ textShadow: '0 3px 8px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.5)' }}
-          >
-            {settings.tagline}
-          </p>
-          <p 
-            className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto text-white/95 leading-relaxed px-4"
-            style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.5)' }}
-          >
-            {settings.description}
-          </p>
+           <h1 
+             className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6"
+             style={{ 
+               background: 'linear-gradient(135deg, #4ADE80 0%, #16A34A 100%)',
+               WebkitBackgroundClip: 'text',
+               WebkitTextFillColor: 'transparent',
+               backgroundClip: 'text',
+               filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 20px rgba(74, 222, 128, 0.3))',
+             }}
+           >
+             Desa Nyalian
+           </h1>
+            <p 
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-3 sm:mb-5 font-semibold text-white"
+              style={{ textShadow: '0 3px 8px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.5)' }}
+            >
+              Sebuah desa di Kabupaten Klungkung yang memadukan keindahan alam, warisan budaya, tradisi Hindu Bali, dan kehidupan masyarakat yang terus lestari sebagai bagian dari identitasnya.
+            </p>
+            <p 
+              className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto text-white/95 leading-relaxed px-4"
+              style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.5)' }}
+            >
+              Kunjungi kami untuk mengalami kehidupan desa yang autentik, dengan ritual keagamaan yang masih hidup, pemandangan persawahan yang indah, dan keramahan masyarakat Nyalian yang tulus.
+            </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
-            <Link href="/destinations" className="w-full sm:w-auto">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg h-12 sm:h-14 shadow-xl hover:shadow-2xl transition-all"
-              >
-                Explore Destinations
-              </Button>
-            </Link>
-            <Link href="/packages" className="w-full sm:w-auto">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto bg-white/20 backdrop-blur-md border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg h-12 sm:h-14 shadow-xl hover:shadow-2xl transition-all"
-              >
-                View Packages
-              </Button>
-            </Link>
+             <Link href="/destinations" className="w-full sm:w-auto">
+               <Button
+                 size="lg"
+                 className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg h-12 sm:h-14 shadow-xl hover:shadow-2xl transition-all"
+               >
+                 Jelajahi Destinasi
+               </Button>
+             </Link>
+             <Link href="/packages" className="w-full sm:w-auto">
+               <Button
+                 size="lg"
+                 variant="outline"
+                 className="w-full sm:w-auto bg-white/20 backdrop-blur-md border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg h-12 sm:h-14 shadow-xl hover:shadow-2xl transition-all"
+               >
+                 Lihat Paket Wisata
+               </Button>
+             </Link>
           </div>
         </motion.div>
       </div>

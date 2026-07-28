@@ -52,7 +52,7 @@ export default function DestinationDetailContent({
     setSelectedVideo(video);
   };
 
-  const whatsappMessage = `Hello, I would like more information about ${destination.name}. Thank you.`;
+  const whatsappMessage = `Halo, saya ingin mengetahui lebih lanjut tentang ${destination.name}. Terima kasih.`;
 
   return (
     <>
@@ -90,7 +90,7 @@ export default function DestinationDetailContent({
 
             <section>
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-                Overview
+                Ringkasan
               </h2>
               <p className="text-text-secondary text-lg leading-relaxed">
                 {destination.shortDescription}
@@ -99,7 +99,7 @@ export default function DestinationDetailContent({
 
             <section>
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-4">
-                Description
+                Deskripsi
               </h2>
               <p className="text-text-secondary leading-relaxed whitespace-pre-line">
                 {destination.description}
@@ -108,7 +108,7 @@ export default function DestinationDetailContent({
 
             <section>
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">
-                Facilities
+                Fasilitas
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {destination.facilities.map((facility) => {
@@ -128,7 +128,7 @@ export default function DestinationDetailContent({
 
             <section>
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">
-                Gallery
+                Galeri
               </h2>
               <ImageGallery
                 images={destination.images}
@@ -140,7 +140,7 @@ export default function DestinationDetailContent({
             {videos.length > 0 && (
               <section>
                 <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">
-                  Videos
+                  Video
                 </h2>
                 <VideoGallery videos={videos} onVideoClick={handleVideoClick} />
               </section>
@@ -148,7 +148,7 @@ export default function DestinationDetailContent({
 
             <section>
               <h2 className="font-heading text-3xl font-bold text-text-primary mb-8">
-                Location
+                Lokasi
               </h2>
               <div className="space-y-4">
                 <AddressCard
@@ -177,8 +177,8 @@ export default function DestinationDetailContent({
             {relatedDestinations.length > 0 && (
               <section>
                 <SectionTitle
-                  title="Related Destinations"
-                  subtitle="Explore more places in the same category"
+                  title="Destinasi Terkait"
+                  subtitle="Jelajahi lebih banyak tempat di kategori yang sama"
                   align="left"
                 />
                 <DestinationGrid destinations={relatedDestinations} />
@@ -198,14 +198,14 @@ export default function DestinationDetailContent({
           <aside className="lg:w-80 flex-shrink-0 space-y-6">
             <Card className="p-6 lg:sticky lg:top-24">
               <h3 className="font-heading text-xl font-bold text-text-primary mb-4">
-                Visit Information
+                Informasi Kunjungan
               </h3>
 
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-semibold text-text-primary">Operating Hours</p>
+                    <p className="font-semibold text-text-primary">Jam Operasional</p>
                     <p className="text-sm text-text-secondary">
                       {destination.operatingHours.open} - {destination.operatingHours.close}
                     </p>
@@ -215,13 +215,13 @@ export default function DestinationDetailContent({
                 <div className="flex items-start gap-3">
                   <Ticket className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="font-semibold text-text-primary mb-2">Ticket Price</p>
+                    <p className="font-semibold text-text-primary mb-2">Harga Tiket</p>
                     {destination.ticketPrice.adult === 0 && destination.ticketPrice.child === 0 ? (
-                      <p className="text-lg font-bold text-primary">Free Entry</p>
+                      <p className="text-lg font-bold text-primary">Gratis</p>
                     ) : (
                       <div className="text-sm space-y-1">
                         <div className="flex justify-between">
-                          <span className="text-text-secondary">Adult:</span>
+                          <span className="text-text-secondary">Dewasa:</span>
                           <span className="font-semibold text-text-primary">
                             {typeof destination.ticketPrice.adult === 'number' 
                               ? formatCurrency(destination.ticketPrice.adult)
@@ -229,7 +229,7 @@ export default function DestinationDetailContent({
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-text-secondary">Child:</span>
+                          <span className="text-text-secondary">Anak:</span>
                           <span className="font-semibold text-text-primary">
                             {typeof destination.ticketPrice.child === 'number' 
                               ? formatCurrency(destination.ticketPrice.child)
@@ -245,7 +245,7 @@ export default function DestinationDetailContent({
               <WhatsAppCTA
                 phone={whatsappPhone}
                 message={whatsappMessage}
-                label="Ask for Details"
+                label="Tanya Detail"
                 size="lg"
               />
             </Card>

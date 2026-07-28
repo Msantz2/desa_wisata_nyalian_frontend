@@ -5,10 +5,10 @@ import { getPackages } from "@/lib/data";
 
 export function generateMetadata(): Metadata {
   return buildMetadata({
-    title: "Tour Packages",
-    description: "Curated experiences combining the best of Nyalian Village. Choose from full-day adventures, cultural immersion, spiritual journeys, and more.",
+    title: "Paket Tur",
+    description: "Pengalaman yang dikurasi menggabungkan yang terbaik dari Desa Nyalian. Pilih dari petualangan seharian penuh, immersion budaya, perjalanan spiritual, dan banyak lagi.",
     path: "/packages",
-    keywords: ["Bali tour packages", "Nyalian tours", "village tour", "cultural tour", "adventure package", "spiritual tour"],
+    keywords: ["Paket tur Bali", "Tur Nyalian", "tur desa", "tur budaya", "paket petualangan", "tur spiritual"],
   });
 }
 

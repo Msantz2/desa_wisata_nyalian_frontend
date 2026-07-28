@@ -17,31 +17,31 @@ export default function HighlightSection({ }: HighlightSectionProps) {
   const highlights = [
     {
       icon: Crown,
-      title: "Royal & Performing Arts Heritage",
-      description: "Home to Puri Agung Nyalian — a living royal residence and the birthplace of Balinese Arja theatre.",
+      title: "Warisan Kerajaan & Seni Pertunjukan",
+      description: "Rumah Puri Agung Nyalian — kediaman kerajaan hidup dan tempat lahirnya teater Arja Bali.",
     },
     {
       icon: Droplets,
-      title: "Spiritual & Purification Tourism",
-      description: "Melukat at a genuinely sacred cliffside spring, not a constructed spa experience.",
+      title: "Wisata Spiritual & Penglukatan",
+      description: "Melukat di mata air tebing yang benar-benar suci, bukan pengalaman spa buatan.",
     },
     {
       icon: Sprout,
-      title: "Nature & Agrarian Landscape",
-      description: "Rice terraces and river valley scenery that Nyalian's community still actively farms today.",
+      title: "Alam & Lanskap Pertanian",
+      description: "Persawahan dan pemandangan lembah sungai yang komunitas Nyalian masih aktif garap hari ini.",
     },
     {
       icon: Paintbrush,
-      title: "Village Life & Local Craft",
-      description: "Meet the artisans behind Nyalian's traditional capil hat weaving in Dusun Pemenang.",
+      title: "Kehidupan Desa & Kerajinan Lokal",
+      description: "Bertemu pengrajin di balik tradisional topi capil Nyalian di Dusun Pemenang.",
     },
   ];
 
   return (
     <SectionContainer background="section">
       <SectionTitle
-        title="Why Visit Nyalian"
-        subtitle="Discover what makes our village special"
+        title="Mengapa Mengunjungi Nyalian"
+        subtitle="Temukan apa yang membuat desa kami istimewa"
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

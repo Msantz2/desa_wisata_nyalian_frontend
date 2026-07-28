@@ -6,10 +6,10 @@ import type { Article } from "@/types/article";
 
 export function generateMetadata(): Metadata {
   return buildMetadata({
-    title: "Articles & Stories",
-    description: "Explore stories, tips, and insights about Nyalian Village and Balinese culture. Discover travel guides, cultural traditions, and local experiences.",
+    title: "Artikel & Cerita",
+    description: "Jelajahi cerita, tips, dan wawasan tentang Desa Nyalian dan budaya Bali. Temukan panduan perjalanan, tradisi budaya, dan pengalaman lokal.",
     path: "/articles",
-    keywords: ["Bali travel guide", "Nyalian stories", "Balinese culture", "travel tips", "local experiences", "cultural traditions"],
+    keywords: ["panduan perjalanan Bali", "cerita Nyalian", "budaya Bali", "tips perjalanan", "pengalaman lokal", "tradisi budaya"],
   });
 }
 

@@ -36,8 +36,8 @@ export default function VideoPreview({ videos }: VideoPreviewProps) {
   return (
     <SectionContainer background="section">
       <SectionTitle
-        title="Video Gallery"
-        subtitle="Watch and experience Nyalian Village through our videos"
+        title="Galeri Video"
+        subtitle="Saksikan dan rasakan Desa Nyalian melalui video kami"
       />
       
       <VideoGallery videos={displayVideos} onVideoClick={handleVideoClick} />

@@ -6,11 +6,11 @@ import { getVillageProfile, getSettings } from "@/lib/data";
 export function generateMetadata(): Metadata {
   const village = getVillageProfile();
   return buildMetadata({
-    title: "About Nyalian Village",
-    description: "Discover the history, philosophy, and cultural heritage of Nyalian Village. Learn about our vision for sustainable community-based tourism in Bali.",
+    title: "Tentang Desa Nyalian",
+    description: "Jelajahi sejarah resmi, geografis, demografi, dan warisan budaya Desa Nyalian di Banjarangkan, Klungkung, Bali. Pelajari tentang filosofi Tri Hita Karana, kehidupan adat, dan asal usul nama Nyalian dari dokumentasi official.",
     path: "/about",
     image: village.gallery[0],
-    keywords: ["Nyalian Village history", "Balinese culture", "community tourism", "sustainable tourism", "Bangli heritage"],
+    keywords: ["Desa Nyalian", "Banjarangkan", "Klungkung", "Bali", "sejarah desa", "budaya Balinese", "Tri Hita Karana", "pariwisata berkelanjutan", "Desa Adat", "warisan budaya"],
   });
 }
 

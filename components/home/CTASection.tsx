@@ -10,9 +10,9 @@ interface CTASectionProps {
 }
 
 export default function CTASection({
-  title = "Ready to Experience Nyalian?",
-  description = "Plan your visit or reach out directly — we're happy to help you experience Nyalian respectfully and authentically.",
-  buttonText = "Plan Your Visit",
+  title = "Siap Mengalami Nyalian?",
+  description = "Rencanakan kunjungan Anda atau hubungi kami langsung — kami senang membantu Anda mengalami Nyalian dengan hormat dan autentik.",
+  buttonText = "Rencanakan Kunjungan",
   whatsappNumber,
 }: CTASectionProps) {
   const whatsappLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}`;
@@ -48,7 +48,7 @@ export default function CTASection({
               className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-6 text-lg"
             >
               <MessageCircle className="mr-2 w-5 h-5" />
-              Chat on WhatsApp
+              Chat di WhatsApp
             </Button>
           </a>
         </div>

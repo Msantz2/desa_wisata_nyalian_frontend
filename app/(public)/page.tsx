@@ -61,7 +61,7 @@ export default function Home() {
       {videoSchemas.map((schema, index) => (
         <StructuredData key={index} data={schema} />
       ))}
-      <Hero settings={settings} />
+      <Hero />
       <HighlightSection village={village} />
       <FeaturedDestinations destinations={featuredDestinations} />
       <FeaturedPackages packages={featuredPackages} />

@@ -5,10 +5,10 @@ import { getDestinations } from "@/lib/data";
 
 export function generateMetadata(): Metadata {
   return buildMetadata({
-    title: "Explore Destinations",
-    description: "Discover the natural beauty and cultural heritage of Nyalian Village. Explore waterfalls, rice terraces, temples, and traditional attractions.",
+    title: "Jelajahi Destinasi",
+    description: "Temukan keindahan alam dan warisan budaya Desa Nyalian. Jelajahi air terjun, persawahan, kuil, dan atraksi tradisional.",
     path: "/destinations",
-    keywords: ["Nyalian destinations", "Bali waterfalls", "rice terraces", "temples", "cultural sites", "nature attractions"],
+    keywords: ["destinasi Nyalian", "air terjun Bali", "persawahan", "kuil", "situs budaya", "atraksi alam"],
   });
 }
 

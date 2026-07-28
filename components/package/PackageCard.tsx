@@ -37,7 +37,7 @@ export default function PackageCard({ package: pkg }: PackageCardProps) {
         {pkg.featured && (
           <div className="absolute top-3 right-3">
             <Badge className="bg-accent text-white">
-              Featured
+              Unggulan
             </Badge>
           </div>
         )}
@@ -65,7 +65,7 @@ export default function PackageCard({ package: pkg }: PackageCardProps) {
         
         <div className="flex items-center justify-between border-t border-border pt-4">
           <div>
-            <div className="text-xs text-text-muted mb-1">From</div>
+            <div className="text-xs text-text-muted mb-1">Dari</div>
             <div className="text-lg font-bold text-primary">
               {typeof pkg.price === 'number' ? formatCurrency(pkg.price) : pkg.price}
             </div>

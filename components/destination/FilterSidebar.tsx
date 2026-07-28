@@ -38,14 +38,14 @@ export default function FilterSidebar({
     <aside className="space-y-6">
       <div className="bg-card rounded-lg border border-border p-6">
         <h3 className="font-heading text-lg font-bold text-text-primary mb-4">
-          Category
+          Kategori
         </h3>
         <RadioGroup value={selectedCategory} onValueChange={onCategoryChange}>
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="" id="category-all" />
               <Label htmlFor="category-all" className="cursor-pointer">
-                All Categories
+                Semua Kategori
               </Label>
             </div>
             {categories.map((category) => (
@@ -65,7 +65,7 @@ export default function FilterSidebar({
 
       <div className="bg-card rounded-lg border border-border p-6">
         <h3 className="font-heading text-lg font-bold text-text-primary mb-4">
-          Facilities
+          Fasilitas
         </h3>
         <div className="space-y-3 max-h-80 overflow-y-auto">
           {facilities.map((facility) => (
@@ -89,7 +89,7 @@ export default function FilterSidebar({
       <div className="bg-card rounded-lg border border-border p-6">
         <div className="flex items-center justify-between">
           <Label htmlFor="featured-only" className="cursor-pointer">
-            Featured Only
+            Hanya Unggulan
           </Label>
           <Switch
             id="featured-only"
